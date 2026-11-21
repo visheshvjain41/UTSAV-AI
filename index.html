@@ -1,0 +1,4836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utsav AI — Plan Your Perfect Event with AI</title>
+  <meta name="description" content="AI-powered event and wedding planner featuring Shubh, your AI planning concierge." />
+  <meta property="og:title" content="Utsav AI — Plan Your Perfect Event with AI" />
+  <meta property="og:description" content="AI-powered event and wedding planner featuring Shubh, your AI planning concierge." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts: Playfair Display (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN SYSTEM TOKENS
+       ========================================================================== */
+    :root {
+      /* Brand & Surface Palette */
+      --marigold: #E8A317;
+      --marigold-dark: #C48408;
+      --marigold-soft: rgba(232, 163, 23, 0.14);
+      --maroon: #7A1F3D;
+      --maroon-dark: #5B142C;
+      --blush: #F8E1E7;
+      --blush-soft: rgba(248, 225, 231, 0.52);
+      --ivory: #FFFBF5;
+      --white: #FFFFFF;
+      --text: #2B2024;
+      --text-muted: #6A585E;
+      --border-subtle: rgba(122, 31, 61, 0.12);
+      --border-dashed: rgba(122, 31, 61, 0.24);
+      --danger: #B42318;
+      --danger-soft: rgba(180, 35, 24, 0.08);
+
+      /* Typography */
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Elevation, Radius & Motion */
+      --radius-card: 16px;
+      --radius-inner: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 10px 30px rgba(43, 32, 36, 0.06);
+      --shadow-hover: 0 18px 42px rgba(122, 31, 61, 0.11);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: 180ms var(--ease-out);
+      --transition-base: 260ms var(--ease-out);
+
+      /* Layout Metrics */
+      --container-max: 1180px;
+      --nav-height: 76px;
+      --sidebar-width: 260px;
+    }
+
+    /* ==========================================================================
+       2. RESET, ACCESSIBILITY & BASE TYPOGRAPHY
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--ivory);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-serif {
+      font-family: var(--font-heading);
+      color: var(--text);
+      line-height: 1.18;
+      text-wrap: balance;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+    }
+
+    input, select, textarea {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--maroon);
+      outline-offset: 3px;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ==========================================================================
+       3. SHARED BUTTONS, FORMS, SECTION HEADERS & SCROLL REVEAL
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 12px 26px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.94rem;
+      line-height: 1;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.985);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--marigold) 0%, #F1B334 100%);
+      color: var(--text);
+      box-shadow: 0 8px 22px rgba(232, 163, 23, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--marigold-dark) 0%, var(--marigold) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(232, 163, 23, 0.36);
+    }
+
+    .btn-maroon {
+      background-color: var(--maroon);
+      color: var(--white);
+      box-shadow: 0 8px 22px rgba(122, 31, 61, 0.22);
+    }
+
+    .btn-maroon:hover {
+      background-color: var(--maroon-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(122, 31, 61, 0.3);
+    }
+
+    .btn-outline {
+      background-color: var(--white);
+      color: var(--maroon);
+      border: 1.5px solid rgba(122, 31, 61, 0.26);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--maroon);
+      background-color: var(--blush-soft);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      min-height: 38px;
+      padding: 8px 18px;
+      font-size: 0.86rem;
+    }
+
+    .section {
+      padding: 88px 0;
+      scroll-margin-top: var(--nav-height);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 660px;
+      margin: 0 auto 52px;
+    }
+
+    .section-kicker {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--maroon);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.03rem;
+      line-height: 1.65;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Shared Celebratory Hero Backdrop (Used in Hero, Login & Wizard) */
+    .celebration-backdrop {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(248, 225, 231, 0.72) 0%, transparent 45%),
+        radial-gradient(circle at 88% 22%, rgba(232, 163, 23, 0.16) 0%, transparent 42%),
+        radial-gradient(circle at 75% 88%, rgba(248, 225, 231, 0.5) 0%, transparent 40%),
+        var(--ivory);
+    }
+
+    .hero-motif {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .mandala-top-right {
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 480px;
+      height: 480px;
+      opacity: 0.11;
+      color: var(--maroon);
+      animation: slowSpin 80s linear infinite;
+    }
+
+    .mandala-bottom-left {
+      position: absolute;
+      bottom: -150px;
+      left: -130px;
+      width: 400px;
+      height: 400px;
+      opacity: 0.14;
+      color: var(--marigold);
+      animation: slowSpin 95s linear infinite reverse;
+    }
+
+    @keyframes slowSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .confetti-petal {
+      position: absolute;
+      border-radius: 12px 2px 12px 2px;
+      opacity: 0.34;
+    }
+
+    .confetti-spark {
+      position: absolute;
+      opacity: 0.36;
+      color: var(--marigold-dark);
+    }
+
+    /* Form Controls */
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .form-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-subtle);
+      background-color: var(--ivory);
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      background-color: var(--white);
+      border-color: var(--maroon);
+      box-shadow: 0 0 0 3px rgba(122, 31, 61, 0.1);
+    }
+
+    .form-textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .form-error {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--danger);
+      background: var(--danger-soft);
+      padding: 8px 12px;
+      border-radius: 10px;
+      margin-top: 4px;
+    }
+
+    /* ==========================================================================
+       4. VIEW 1 — LANDING PAGE
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      background: rgba(255, 251, 245, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      height: 100%;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--maroon);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--maroon) 0%, #9E2B51 100%);
+      color: var(--marigold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(122, 31, 61, 0.22);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.93rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 6px 0;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 100%;
+      height: 2px;
+      background-color: var(--marigold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: var(--maroon);
+    }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .nav-cta {
+      min-height: 40px;
+      padding: 10px 22px;
+      font-size: 0.9rem;
+    }
+
+    .hamburger-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+      color: var(--maroon);
+      background-color: var(--blush-soft);
+      transition: background-color var(--transition-fast);
+    }
+
+    .hamburger-btn:hover {
+      background-color: var(--blush);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background: var(--ivory);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 18px 24px 26px;
+      box-shadow: 0 20px 40px rgba(43, 32, 36, 0.12);
+      z-index: 99;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu .nav-link {
+      padding: 12px 0;
+      font-size: 1.02rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .mobile-menu .nav-link::after {
+      display: none;
+    }
+
+    .hero {
+      min-height: calc(100vh - var(--nav-height));
+      display: flex;
+      align-items: center;
+      padding: 56px 0 72px;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--maroon);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.45rem, 4.6vw, 3.85rem);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .hero-title span {
+      color: var(--maroon);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 4px;
+      width: 100%;
+      height: 10px;
+      background-color: rgba(232, 163, 23, 0.28);
+      z-index: -1;
+      border-radius: 4px;
+    }
+
+    .hero-subtext {
+      font-size: clamp(1.04rem, 1.45vw, 1.18rem);
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .hero-trust-sep {
+      color: var(--marigold-dark);
+      font-weight: 700;
+    }
+
+    .hero-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      box-shadow: 0 24px 56px rgba(122, 31, 61, 0.11);
+      border: 1px solid var(--border-subtle);
+      position: relative;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 18px;
+    }
+
+    .shubh-avatar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .shubh-orb {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--maroon), #A22A52);
+      color: var(--marigold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .shubh-meta h3 {
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .shubh-meta span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card-status {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--maroon);
+      white-space: nowrap;
+    }
+
+    .hero-prompt-block {
+      background: var(--ivory);
+      border-radius: var(--radius-inner);
+      padding: 14px 16px;
+      font-size: 0.89rem;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .hero-prompt-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--maroon);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .hero-plan-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 18px;
+    }
+
+    .metric-mini {
+      text-align: center;
+    }
+
+    .metric-mini strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      color: var(--maroon);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-mini span {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .hero-task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-task-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--ivory);
+      font-size: 0.85rem;
+    }
+
+    .hero-task-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      min-width: 0;
+    }
+
+    .task-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: var(--marigold-soft);
+      color: var(--marigold-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .task-note {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--maroon);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 30px 26px;
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: var(--blush);
+      color: var(--maroon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: background-color var(--transition-fast), color var(--transition-fast);
+    }
+
+    .feature-card:hover .feature-icon {
+      background: var(--marigold);
+      color: var(--text);
+    }
+
+    .feature-card h3 {
+      font-size: 1.32rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      line-height: 1.62;
+    }
+
+    .how-strip {
+      background: linear-gradient(180deg, rgba(248, 225, 231, 0.34) 0%, rgba(255, 251, 245, 0.85) 100%);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .step-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--maroon);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 14px rgba(122, 31, 61, 0.2);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .step-card h3 {
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 0.91rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .event-types-box {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 48px 36px;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+    }
+
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 28px auto 24px;
+      max-width: 820px;
+    }
+
+    .event-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 11px 22px;
+      border-radius: var(--radius-pill);
+      background: var(--ivory);
+      border: 1.5px solid rgba(122, 31, 61, 0.18);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.94rem;
+      white-space: nowrap;
+      transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .event-chip:hover {
+      border-color: var(--maroon);
+      color: var(--maroon);
+      transform: translateY(-2px);
+    }
+
+    .event-chip.active {
+      background: var(--maroon);
+      color: var(--white);
+      border-color: var(--maroon);
+      box-shadow: 0 8px 20px rgba(122, 31, 61, 0.22);
+    }
+
+    .chip-caption {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 34px 28px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--marigold);
+      box-shadow: 0 20px 44px rgba(232, 163, 23, 0.16);
+    }
+
+    .pricing-tag {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--marigold-dark);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .pricing-tier {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .pricing-desc {
+      font-size: 0.91rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .pricing-price {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--maroon);
+      margin-bottom: 22px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pricing-price span {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .pricing-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 30px;
+      flex: 1;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .pricing-features svg {
+      flex-shrink: 0;
+      margin-top: 3px;
+      color: var(--marigold-dark);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 30px 26px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .stars {
+      color: var(--marigold);
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .testimonial-quote {
+      font-size: 0.96rem;
+      color: var(--text);
+      margin-bottom: 24px;
+      line-height: 1.66;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .author-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--blush);
+      color: var(--maroon);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.88rem;
+      flex-shrink: 0;
+    }
+
+    .author-info strong {
+      display: block;
+      font-size: 0.93rem;
+    }
+
+    .author-info span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .cta-banner-section {
+      padding: 16px 0 88px;
+    }
+
+    .cta-banner {
+      background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+      border-radius: var(--radius-card);
+      padding: 60px 42px;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 50px rgba(122, 31, 61, 0.24);
+    }
+
+    .cta-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(232, 163, 23, 0.22), transparent 44%),
+        radial-gradient(circle at 82% 80%, rgba(248, 225, 231, 0.16), transparent 44%);
+      pointer-events: none;
+    }
+
+    .cta-banner-content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-banner h2 {
+      color: var(--white);
+      font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+      margin-bottom: 14px;
+    }
+
+    .cta-banner p {
+      color: rgba(255, 251, 245, 0.88);
+      font-size: 1.05rem;
+      margin-bottom: 28px;
+    }
+
+    .footer {
+      background: var(--white);
+      border-top: 1px solid var(--border-subtle);
+      padding: 64px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 44px;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-top: 14px;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--maroon);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a,
+    .footer-col button {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      transition: color var(--transition-fast);
+      text-align: left;
+    }
+
+    .footer-col a:hover,
+    .footer-col button:hover {
+      color: var(--maroon);
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       5. LOGIN SCREEN (#login-view)
+       ========================================================================== */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
+
+    .login-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 40px 34px 32px;
+      box-shadow: 0 24px 60px rgba(122, 31, 61, 0.12);
+      border: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+
+    .login-logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .login-logo-wrap .brand-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+    }
+
+    .login-logo-wrap .brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.95rem;
+      font-weight: 700;
+      color: var(--maroon);
+    }
+
+    .login-tagline {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .google-btn {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 20px;
+      border-radius: var(--radius-pill);
+      background: var(--white);
+      border: 1.5px solid rgba(43, 32, 36, 0.18);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+      margin-bottom: 12px;
+    }
+
+    .google-btn:hover {
+      background: var(--ivory);
+      border-color: var(--maroon);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .guest-btn {
+      width: 100%;
+      min-height: 46px;
+    }
+
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
+    /* Compact Google Account Details Panel (No cloud console setup required) */
+    .google-panel {
+      margin-top: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-subtle);
+      text-align: left;
+      animation: fadeTab 0.2s var(--ease-out);
+    }
+
+    .google-panel-title {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--maroon);
+      margin-bottom: 12px;
+    }
+
+    .login-footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 22px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color var(--transition-fast);
+    }
+
+    .login-footer-link:hover {
+      color: var(--maroon);
+    }
+
+    /* ==========================================================================
+       6. EVENT SETUP WIZARD (#wizard-view)
+       ========================================================================== */
+    .wizard-screen {
+      min-height: 100vh;
+      padding: 36px 20px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .wizard-shell {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 820px;
+    }
+
+    .wizard-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .wizard-user-label {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .wizard-user-label strong {
+      color: var(--maroon);
+    }
+
+    .wizard-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 36px 36px 32px;
+      box-shadow: 0 24px 60px rgba(122, 31, 61, 0.11);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Progress Bar & Stepper */
+    .wizard-progress-wrap {
+      margin-bottom: 30px;
+    }
+
+    .wizard-progress-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .wizard-step-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--maroon);
+    }
+
+    .wizard-step-counter {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      border-radius: var(--radius-pill);
+      background: var(--blush);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(90deg, var(--maroon) 0%, var(--marigold) 100%);
+      transition: width 0.3s var(--ease-out);
+    }
+
+    .wizard-steps-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .wizard-step-dot {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 6px 4px;
+      border-radius: 8px;
+      transition: color var(--transition-fast), background-color var(--transition-fast);
+    }
+
+    .wizard-step-dot.active {
+      color: var(--maroon);
+      background: var(--blush-soft);
+    }
+
+    .wizard-step-dot.done {
+      color: var(--marigold-dark);
+    }
+
+    .wizard-step-heading {
+      font-size: clamp(1.55rem, 2.8vw, 2rem);
+      margin-bottom: 6px;
+    }
+
+    .wizard-step-sub {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      margin-bottom: 26px;
+    }
+
+    /* Selectable Option Cards & Chips in Wizard */
+    .option-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .option-card {
+      min-height: 50px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-subtle);
+      background: var(--ivory);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .option-card:hover {
+      border-color: var(--maroon);
+      transform: translateY(-1px);
+    }
+
+    .option-card.selected {
+      background: var(--maroon);
+      color: var(--white);
+      border-color: var(--maroon);
+      box-shadow: 0 6px 16px rgba(122, 31, 61, 0.2);
+    }
+
+    .chip-select-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .select-chip {
+      min-height: 42px;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border-subtle);
+      background: var(--ivory);
+      font-size: 0.89rem;
+      font-weight: 600;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+    }
+
+    .select-chip:hover {
+      border-color: var(--maroon);
+    }
+
+    .select-chip.selected {
+      background: var(--maroon);
+      color: var(--white);
+      border-color: var(--maroon);
+    }
+
+    .priority-rank-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--marigold);
+      color: var(--text);
+      font-size: 0.76rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .two-col-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Live Countdown & Per-Guest Callouts */
+    .live-callout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: var(--blush-soft);
+      border: 1px solid rgba(122, 31, 61, 0.14);
+      margin-bottom: 20px;
+    }
+
+    .live-callout strong {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      color: var(--maroon);
+    }
+
+    .live-callout span {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* Range Slider */
+    .range-control-row {
+      display: grid;
+      grid-template-columns: 1fr 170px;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .range-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: var(--radius-pill);
+      background: var(--blush);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--maroon);
+      border: 3px solid var(--marigold);
+      box-shadow: 0 3px 10px rgba(122, 31, 61, 0.25);
+      cursor: pointer;
+    }
+
+    .range-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--maroon);
+      border: 3px solid var(--marigold);
+      box-shadow: 0 3px 10px rgba(122, 31, 61, 0.25);
+      cursor: pointer;
+    }
+
+    .range-bounds {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Wizard Navigation Footer */
+    .wizard-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Wizard Summary & SVG Donut Chart */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .summary-details-card,
+    .summary-chart-card {
+      background: var(--ivory);
+      border-radius: var(--radius-inner);
+      padding: 22px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .summary-details-card h3,
+    .summary-chart-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+      color: var(--maroon);
+    }
+
+    .summary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border-subtle);
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .summary-key {
+      color: var(--text-muted);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .summary-val {
+      color: var(--text);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .donut-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .donut-svg-container {
+      position: relative;
+      width: 210px;
+      height: 210px;
+    }
+
+    .donut-center-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+      padding: 18px;
+    }
+
+    .donut-center-label span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .donut-center-label strong {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      color: var(--maroon);
+      margin-top: 2px;
+    }
+
+    .donut-legend {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.83rem;
+    }
+
+    .legend-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .legend-swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .legend-right {
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ==========================================================================
+       7. VIEW 2 — APP SHELL
+       ========================================================================== */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+      background-color: var(--ivory);
+    }
+
+    .app-sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--white);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 16px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 0 8px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sidebar-tab {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: background-color var(--transition-fast), color var(--transition-fast);
+      text-align: left;
+      width: 100%;
+      white-space: nowrap;
+    }
+
+    .sidebar-tab:hover {
+      background-color: var(--ivory);
+      color: var(--maroon);
+    }
+
+    .sidebar-tab.active {
+      background-color: var(--blush);
+      color: var(--maroon);
+      font-weight: 700;
+    }
+
+    .sidebar-footer {
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sidebar-user-chip {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--ivory);
+      font-size: 0.8rem;
+    }
+
+    .sidebar-user-chip strong {
+      display: block;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-user-chip span {
+      display: block;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .back-home-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      min-height: 38px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: background-color var(--transition-fast), color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .back-home-btn:hover {
+      background-color: var(--blush-soft);
+      color: var(--maroon);
+    }
+
+    .app-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .app-topbar {
+      height: 72px;
+      background-color: rgba(255, 251, 245, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .topbar-event {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .topbar-event-title {
+      font-family: var(--font-heading);
+      font-size: 1.32rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-event-sep {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .topbar-event-type {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--maroon);
+      white-space: nowrap;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .countdown-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 15px;
+      border-radius: var(--radius-pill);
+      background: var(--marigold-soft);
+      border: 1px solid rgba(232, 163, 23, 0.42);
+      color: var(--maroon);
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bell-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--border-subtle);
+      color: var(--maroon);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: background-color var(--transition-fast);
+    }
+
+    .bell-btn:hover {
+      background: var(--blush);
+    }
+
+    .bell-count {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: var(--radius-pill);
+      background: var(--maroon);
+      color: var(--white);
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .reminder-popover {
+      position: absolute;
+      top: 54px;
+      right: 0;
+      width: 296px;
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 18px;
+      box-shadow: var(--shadow-hover);
+      border: 1px solid var(--border-subtle);
+      z-index: 60;
+    }
+
+    .reminder-popover-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .reminder-popover h4 {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--maroon);
+    }
+
+    .reminder-clear-btn {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color var(--transition-fast);
+    }
+
+    .reminder-clear-btn:hover {
+      color: var(--maroon);
+    }
+
+    .reminder-item {
+      font-size: 0.84rem;
+      color: var(--text);
+      padding: 10px 0;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .reminder-item span {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .app-content {
+      padding: 32px;
+      flex: 1;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeTab 0.22s var(--ease-out);
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeTab {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tab-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .tab-header h1 {
+      font-size: 2rem;
+      margin-bottom: 6px;
+    }
+
+    .tab-header p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+    }
+
+    .tab-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mobile-back-link {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--maroon);
+      white-space: nowrap;
+    }
+
+    .placeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    .placeholder-box {
+      background: var(--white);
+      border: 2px dashed var(--border-dashed);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      min-height: 186px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      grid-column: span 4;
+    }
+
+    .placeholder-box:hover {
+      border-color: var(--marigold);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .placeholder-box.span-6 {
+      grid-column: span 6;
+    }
+
+    .placeholder-box.span-8 {
+      grid-column: span 8;
+    }
+
+    .placeholder-box.span-12 {
+      grid-column: span 12;
+      min-height: 215px;
+    }
+
+    .placeholder-kicker {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--maroon);
+      margin-bottom: 10px;
+    }
+
+    .placeholder-box h3 {
+      font-size: 1.36rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .placeholder-box p {
+      font-size: 0.91rem;
+      color: var(--text-muted);
+      line-height: 1.58;
+    }
+
+    .placeholder-value {
+      font-family: var(--font-heading);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--maroon);
+      margin: 10px 0 4px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .placeholder-meta {
+      margin-top: 22px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(122, 31, 61, 0.14);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .budget-split-mini {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 16px;
+      margin-top: 12px;
+      font-size: 0.83rem;
+    }
+
+    .budget-split-mini-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed rgba(122, 31, 61, 0.12);
+    }
+
+    /* ==========================================================================
+       8. RESPONSIVE BREAKPOINTS & REDUCED MOTION
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .features-grid,
+      .pricing-grid,
+      .testimonials-grid,
+      .steps-grid,
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .placeholder-box,
+      .placeholder-box.span-6,
+      .placeholder-box.span-8 {
+        grid-column: span 6;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links,
+      .nav-actions .nav-cta {
+        display: none;
+      }
+
+      .hamburger-btn {
+        display: inline-flex;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+
+      .features-grid,
+      .steps-grid,
+      .pricing-grid,
+      .testimonials-grid,
+      .footer-grid,
+      .two-col-fields,
+      .budget-split-mini {
+        grid-template-columns: 1fr;
+      }
+
+      .range-control-row {
+        grid-template-columns: 1fr;
+      }
+
+      .wizard-card {
+        padding: 24px 18px;
+      }
+
+      .wizard-steps-row {
+        gap: 4px;
+      }
+
+      .wizard-step-dot {
+        font-size: 0.7rem;
+      }
+
+      .event-types-box {
+        padding: 34px 20px;
+      }
+
+      .cta-banner {
+        padding: 44px 24px;
+      }
+
+      .app-shell {
+        flex-direction: column;
+        padding-bottom: 68px;
+      }
+
+      .app-sidebar {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 64px;
+        flex-direction: row;
+        padding: 4px 6px;
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
+        box-shadow: 0 -8px 24px rgba(43, 32, 36, 0.08);
+        z-index: 80;
+      }
+
+      .sidebar-header,
+      .sidebar-footer {
+        display: none;
+      }
+
+      .sidebar-nav {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        gap: 2px;
+      }
+
+      .sidebar-tab {
+        flex-direction: column;
+        justify-content: center;
+        gap: 3px;
+        min-height: 44px;
+        padding: 6px 4px;
+        font-size: 0.68rem;
+        border-radius: 10px;
+      }
+
+      .app-topbar {
+        padding: 0 16px;
+        height: 60px;
+      }
+
+      .topbar-event-sep,
+      .topbar-event-type {
+        display: none;
+      }
+
+      .topbar-event-title {
+        font-size: 1.06rem;
+      }
+
+      .countdown-pill {
+        padding: 5px 11px;
+        font-size: 0.78rem;
+      }
+
+      .app-content {
+        padding: 20px 16px;
+      }
+
+      .mobile-back-link {
+        display: inline-flex;
+      }
+
+      .placeholder-box,
+      .placeholder-box.span-6,
+      .placeholder-box.span-8,
+      .placeholder-box.span-12 {
+        grid-column: span 12;
+        min-height: 152px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .mandala-top-right,
+      .mandala-bottom-left {
+        animation: none;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .btn,
+      .feature-card,
+      .step-card,
+      .pricing-card,
+      .testimonial-card,
+      .event-chip,
+      .tab-panel {
+        transition: none;
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       VIEW 1: LANDING PAGE
+       ======================================================================== -->
+  <div id="landing-view">
+
+    <!-- Sticky Navbar -->
+    <header class="navbar">
+      <div class="container navbar-inner">
+        <a href="#hero" class="brand-logo" aria-label="Utsav AI Home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L14.8 8.5L21.5 9.2L16.4 13.7L17.9 20.4L12 16.8L6.1 20.4L7.6 13.7L2.5 9.2L9.2 8.5L12 2Z" />
+            </svg>
+          </span>
+          <span>Utsav AI</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary Navigation">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#occasions" class="nav-link">Occasions</a>
+          <a href="#pricing" class="nav-link">Pricing</a>
+          <a href="#testimonials" class="nav-link">Stories</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button type="button" class="btn btn-primary nav-cta js-start-planning">Start Planning</button>
+          <button type="button" class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Hamburger Drawer -->
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Navigation">
+        <a href="#features" class="nav-link js-mobile-link">Features</a>
+        <a href="#how-it-works" class="nav-link js-mobile-link">How It Works</a>
+        <a href="#occasions" class="nav-link js-mobile-link">Occasions</a>
+        <a href="#pricing" class="nav-link js-mobile-link">Pricing</a>
+        <a href="#testimonials" class="nav-link js-mobile-link">Stories</a>
+        <button type="button" class="btn btn-primary js-start-planning" style="width: 100%; margin-top: 8px;">Start Planning</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Full-Viewport Hero -->
+      <section class="hero celebration-backdrop" id="hero">
+        <div class="hero-motif" aria-hidden="true">
+          <svg class="mandala-top-right" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="100" cy="100" r="88" stroke-dasharray="4 4" />
+            <circle cx="100" cy="100" r="66" />
+            <circle cx="100" cy="100" r="42" stroke-dasharray="3 3" />
+            <path d="M100 12 C112 45, 112 45, 100 78 C88 45, 88 45, 100 12 Z" />
+            <path d="M100 188 C112 155, 112 155, 100 122 C88 155, 88 155, 100 188 Z" />
+            <path d="M12 100 C45 112, 45 112, 78 100 C45 88, 45 88, 12 100 Z" />
+            <path d="M188 100 C155 112, 155 112, 122 100 C155 88, 155 88, 188 100 Z" />
+            <path d="M38 38 C68 55, 68 55, 84 84 C55 68, 55 68, 38 38 Z" />
+            <path d="M162 162 C132 145, 132 145, 116 116 C145 132, 145 132, 162 162 Z" />
+            <path d="M162 38 C145 68, 145 68, 116 84 C132 55, 132 55, 162 38 Z" />
+            <path d="M38 162 C55 132, 55 132, 84 116 C68 145, 68 145, 38 162 Z" />
+          </svg>
+          <svg class="mandala-bottom-left" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.3">
+            <circle cx="100" cy="100" r="80" stroke-dasharray="5 5" />
+            <circle cx="100" cy="100" r="52" />
+            <circle cx="100" cy="100" r="26" />
+          </svg>
+          <span class="confetti-petal" style="top: 16%; left: 48%; width: 14px; height: 7px; background: var(--marigold); transform: rotate(28deg);"></span>
+          <span class="confetti-petal" style="top: 25%; left: 54%; width: 11px; height: 6px; background: var(--maroon); transform: rotate(-18deg);"></span>
+          <span class="confetti-petal" style="top: 72%; left: 45%; width: 14px; height: 7px; background: var(--maroon); transform: rotate(-34deg);"></span>
+          <span class="confetti-petal" style="top: 81%; left: 57%; width: 12px; height: 6px; background: var(--marigold); transform: rotate(42deg);"></span>
+          <svg class="confetti-spark" style="top: 19%; left: 61%; width: 14px; height: 14px;" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10L12 2Z" />
+          </svg>
+        </div>
+
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="hero-eyebrow">Shubh · Your AI Celebration Concierge</span>
+
+            <h1 class="hero-title">
+              Plan Your Perfect <span>Event</span> with AI
+            </h1>
+
+            <p class="hero-subtext">
+              Enter your budget, guests and date. Shubh, your AI planner, handles the rest.
+            </p>
+
+            <div class="hero-ctas">
+              <button type="button" class="btn btn-primary js-start-planning">
+                Start Planning
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+              <a href="#how-it-works" class="btn btn-outline">See How It Works</a>
+            </div>
+
+            <div class="hero-trust">
+              <span>No spreadsheets needed</span>
+              <span class="hero-trust-sep" aria-hidden="true">·</span>
+              <span>Instant budget split</span>
+              <span class="hero-trust-sep" aria-hidden="true">·</span>
+              <span>Built for Indian &amp; modern celebrations</span>
+            </div>
+          </div>
+
+          <!-- Hero Blueprint Preview Card -->
+          <div class="hero-card" aria-label="Shubh AI Planner Preview">
+            <div class="hero-card-header">
+              <div class="shubh-avatar">
+                <div class="shubh-orb" aria-hidden="true">S</div>
+                <div class="shubh-meta">
+                  <h3>Shubh AI Planner</h3>
+                  <span>Jaipur Destination · 250 Guests</span>
+                </div>
+              </div>
+              <span class="hero-card-status tabular-nums">94% Ready</span>
+            </div>
+
+            <div class="hero-prompt-block">
+              <span class="hero-prompt-label">Your Brief</span>
+              “3-day Wedding for 250 guests in November, ₹28L budget, garden Sangeet + morning pheras.”
+            </div>
+
+            <div class="hero-plan-metrics">
+              <div class="metric-mini">
+                <strong>₹27.4L</strong>
+                <span>Projected</span>
+              </div>
+              <div class="metric-mini">
+                <strong>218 / 250</strong>
+                <span>RSVPs Confirmed</span>
+              </div>
+              <div class="metric-mini">
+                <strong>42 Tasks</strong>
+                <span>Scheduled</span>
+              </div>
+            </div>
+
+            <div class="hero-task-list">
+              <div class="hero-task-item">
+                <span class="hero-task-left">
+                  <span class="task-check" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12" /></svg>
+                  </span>
+                  Marigold Mandap &amp; Floral Decor Locked
+                </span>
+                <span class="task-note">Budget Safe</span>
+              </div>
+              <div class="hero-task-item">
+                <span class="hero-task-left">
+                  <span class="task-check" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12" /></svg>
+                  </span>
+                  WhatsApp RSVP Nudge Sent to 32 Guests
+                </span>
+                <span class="task-note">Automated</span>
+              </div>
+              <div class="hero-task-item">
+                <span class="hero-task-left">
+                  <span class="task-check" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12" /></svg>
+                  </span>
+                  +30 Guests Added · Catering Rebalanced
+                </span>
+                <span class="task-note">Replanned</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 Feature Cards -->
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-kicker">Intelligent Toolkit</span>
+            <h2 class="section-title">Everything you need for a calm, joyful celebration</h2>
+            <p class="section-subtitle">
+              From the first moodboard to the final farewell, Utsav AI keeps every timeline, rupee, and RSVP in harmony.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <article class="feature-card reveal">
+              <div class="feature-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </div>
+              <h3>Smart Timeline</h3>
+              <p>Shubh generates a month-by-month, ceremony-aware checklist tailored to your exact event date and traditions.</p>
+            </article>
+
+            <article class="feature-card reveal">
+              <div class="feature-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3>Vendor Matchmaker</h3>
+              <p>Discover vetted decorators, caterers, photographers, and venues matched to your style, city, and target spend.</p>
+            </article>
+
+            <article class="feature-card reveal">
+              <div class="feature-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <h3>RSVP Tracker</h3>
+              <p>Manage multi-function guest lists, dietary notes, room allocations, and instant invite tracking in one place.</p>
+            </article>
+
+            <article class="feature-card reveal">
+              <div class="feature-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg>
+              </div>
+              <h3>Budget Guardian</h3>
+              <p>Smart category splits, advance payment alerts, and real-time overspend warnings before costs sneak up on you.</p>
+            </article>
+
+            <article class="feature-card reveal">
+              <div class="feature-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+              </div>
+              <h3>Auto Reminders</h3>
+              <p>Never miss a vendor deposit, outfit fitting, or RSVP nudge with gentle, timely reminders for you and co-hosts.</p>
+            </article>
+
+            <article class="feature-card reveal">
+              <div class="feature-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10" />
+                  <polyline points="1 20 1 14 7 14" />
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                </svg>
+              </div>
+              <h3>Instant Replanning</h3>
+              <p>Guest count jumped by 40 or rain shifted your lawn venue? Tell Shubh what changed and watch your plan adapt in seconds.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4-Step How-It-Works Strip -->
+      <section class="section how-strip" id="how-it-works">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-kicker">How It Works</span>
+            <h2 class="section-title">From blank slate to celebration-ready in 4 steps</h2>
+            <p class="section-subtitle">
+              Shubh turns scattered notes and family WhatsApp threads into one calm, actionable blueprint.
+            </p>
+          </div>
+
+          <div class="steps-grid">
+            <div class="step-card reveal">
+              <div class="step-number">1</div>
+              <h3>Tell us your event</h3>
+              <p>Share your occasion, target date, approximate guest count, city, and comfortable budget.</p>
+            </div>
+
+            <div class="step-card reveal">
+              <div class="step-number">2</div>
+              <h3>Get your plan</h3>
+              <p>Shubh builds your custom timeline, budget split, and curated vendor shortlist instantly.</p>
+            </div>
+
+            <div class="step-card reveal">
+              <div class="step-number">3</div>
+              <h3>Track everything</h3>
+              <p>Check off tasks, monitor RSVPs, log vendor advances, and stay aligned with your family.</p>
+            </div>
+
+            <div class="step-card reveal">
+              <div class="step-number">4</div>
+              <h3>Shubh replans when life happens</h3>
+              <p>Dates shift, budgets stretch, or guests add plus-ones—Shubh recalibrates the entire plan smoothly.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Event-Type Chips -->
+      <section class="section" id="occasions">
+        <div class="container">
+          <div class="event-types-box reveal">
+            <span class="section-kicker">Built For Every Milestone</span>
+            <h2 class="section-title">Choose your celebration</h2>
+            <p class="section-subtitle" style="max-width: 560px; margin: 0 auto;">
+              Pick an occasion below to preview how Shubh tailors rituals, checklists, and budgets—and carries your selection straight into setup.
+            </p>
+
+            <div class="chips-wrap" role="group" aria-label="Event types">
+              <button type="button" class="event-chip active" data-event="Wedding">Wedding</button>
+              <button type="button" class="event-chip" data-event="Engagement">Engagement</button>
+              <button type="button" class="event-chip" data-event="Birthday">Birthday</button>
+              <button type="button" class="event-chip" data-event="Anniversary">Anniversary</button>
+              <button type="button" class="event-chip" data-event="Corporate Offsite">Corporate Offsite</button>
+              <button type="button" class="event-chip" data-event="Baby Shower">Baby Shower</button>
+            </div>
+
+            <p class="chip-caption" id="chip-caption">
+              <strong>Wedding</strong> · Multi-day ceremonies, vendor coordination, and full family RSVP tracking ready.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3-Tier Pricing -->
+      <section class="section" id="pricing" style="padding-top: 16px;">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-kicker">Transparent Pricing</span>
+            <h2 class="section-title">Start free, upgrade as your celebration grows</h2>
+            <p class="section-subtitle">
+              No hidden commissions. Clear planning tools for hosts, families, and boutique event studios.
+            </p>
+          </div>
+
+          <div class="pricing-grid">
+            <div class="pricing-card reveal">
+              <span class="pricing-tag">For Intimate Gatherings</span>
+              <h3 class="pricing-tier">Free</h3>
+              <p class="pricing-desc">Ideal for birthdays, engagements, and getting your first blueprint ready.</p>
+              <div class="pricing-price">₹0 <span>/ forever</span></div>
+              <ul class="pricing-features">
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  1 active event workspace
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Smart Timeline &amp; ceremony checklist
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Up to 75 guests in RSVP Tracker
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Core Budget Guardian split
+                </li>
+              </ul>
+              <button type="button" class="btn btn-outline js-start-planning" style="width: 100%;">Start Planning Free</button>
+            </div>
+
+            <div class="pricing-card featured reveal">
+              <span class="pricing-tag">Most Popular · Grand Celebrations</span>
+              <h3 class="pricing-tier">Pro</h3>
+              <p class="pricing-desc">Built for multi-day weddings and milestone family celebrations.</p>
+              <div class="pricing-price">₹1,499 <span>/ event</span></div>
+              <ul class="pricing-features">
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Unlimited guests &amp; multi-function RSVPs
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Unlimited Shubh AI chat &amp; Instant Replanning
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Vendor Matchmaker &amp; quote comparison
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Auto Reminders &amp; 5 family co-planners
+                </li>
+              </ul>
+              <button type="button" class="btn btn-primary js-start-planning" style="width: 100%;">Start Planning Pro</button>
+            </div>
+
+            <div class="pricing-card reveal">
+              <span class="pricing-tag">For Agencies &amp; Teams</span>
+              <h3 class="pricing-tier">Planner Studio</h3>
+              <p class="pricing-desc">Designed for professional wedding planners and boutique event studios.</p>
+              <div class="pricing-price">₹4,999 <span>/ month</span></div>
+              <ul class="pricing-features">
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Up to 15 concurrent client events
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  White-label client portals &amp; budget reports
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Custom vendor database &amp; payment ledger
+                </li>
+                <li>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  Priority Shubh AI concierge support
+                </li>
+              </ul>
+              <button type="button" class="btn btn-maroon js-start-planning" style="width: 100%;">Start Planning Studio</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 Testimonial Cards -->
+      <section class="section" id="testimonials">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-kicker">Host Stories</span>
+            <h2 class="section-title">Calm, joyful planning stories</h2>
+            <p class="section-subtitle">
+              Celebrations orchestrated with clarity, warmth, and zero last-minute panic.
+            </p>
+          </div>
+
+          <div class="testimonials-grid">
+            <article class="testimonial-card reveal">
+              <div>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-quote">
+                  “We planned a 300-guest Udaipur wedding while working full-time in Bengaluru. When our Sangeet venue had to move indoors two weeks out, Shubh replanned our decor budget and timeline in ten minutes.”
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" aria-hidden="true">AN</div>
+                <div class="author-info">
+                  <strong>Ananya &amp; Nikhil Kapoor</strong>
+                  <span>3-Day Destination Wedding · Udaipur</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card reveal">
+              <div>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-quote">
+                  “Our parents’ 25th Anniversary had 12 relatives giving different suggestions. Having one Budget Guardian and RSVP Tracker kept everyone aligned—and we stayed ₹65,000 under budget.”
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" aria-hidden="true">RS</div>
+                <div class="author-info">
+                  <strong>Rhea Sharma</strong>
+                  <span>Silver Jubilee Host · Delhi NCR</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card reveal">
+              <div>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-quote">
+                  “As a boutique planner handling six events a quarter, Planner Studio saved my team 12 hours a week on vendor follow-ups, checklist nudges, and client budget updates.”
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" aria-hidden="true">VM</div>
+                <div class="author-info">
+                  <strong>Vikram Mehta</strong>
+                  <span>Founder, Marigold &amp; Co. · Mumbai</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Banner -->
+      <section class="cta-banner-section">
+        <div class="container">
+          <div class="cta-banner reveal">
+            <div class="cta-banner-content">
+              <h2>Your celebration deserves joy, not spreadsheets.</h2>
+              <p>
+                Tell Shubh your budget, guest count, and date—get a calm, bespoke event plan in under two minutes.
+              </p>
+              <button type="button" class="btn btn-primary js-start-planning">
+                Start Planning
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 4-Column Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#hero" class="brand-logo">
+              <span class="brand-mark" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L14.8 8.5L21.5 9.2L16.4 13.7L17.9 20.4L12 16.8L6.1 20.4L7.6 13.7L2.5 9.2L9.2 8.5L12 2Z" />
+                </svg>
+              </span>
+              <span>Utsav AI</span>
+            </a>
+            <p>
+              AI-powered event and wedding planning built to turn grand celebrations into effortless memories.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#features">Smart Timeline</a></li>
+              <li><a href="#features">Vendor Matchmaker</a></li>
+              <li><a href="#features">Budget Guardian</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Celebrations</h4>
+            <ul>
+              <li><a href="#occasions">Weddings</a></li>
+              <li><a href="#occasions">Engagements</a></li>
+              <li><a href="#occasions">Milestone Birthdays</a></li>
+              <li><a href="#occasions">Corporate Offsites</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#testimonials">Host Stories</a></li>
+              <li><button type="button" class="js-start-planning">Open Planner App</button></li>
+              <li><a href="mailto:hello@utsav.ai">hello@utsav.ai</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 Utsav AI. Crafted with warmth for every milestone.</span>
+          <span>Privacy Policy · Terms of Service</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- ========================================================================
+       LOGIN SCREEN (Shown when no "userProfile" in localStorage)
+       ======================================================================== -->
+  <section id="login-view" class="login-screen celebration-backdrop hidden" aria-label="Sign in to Utsav AI">
+    <div class="hero-motif" aria-hidden="true">
+      <svg class="mandala-top-right" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2">
+        <circle cx="100" cy="100" r="88" stroke-dasharray="4 4" />
+        <circle cx="100" cy="100" r="66" />
+        <circle cx="100" cy="100" r="42" stroke-dasharray="3 3" />
+      </svg>
+      <svg class="mandala-bottom-left" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.3">
+        <circle cx="100" cy="100" r="80" stroke-dasharray="5 5" />
+        <circle cx="100" cy="100" r="52" />
+      </svg>
+    </div>
+
+    <div class="login-card">
+      <div class="login-logo-wrap">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L14.8 8.5L21.5 9.2L16.4 13.7L17.9 20.4L12 16.8L6.1 20.4L7.6 13.7L2.5 9.2L9.2 8.5L12 2Z" />
+          </svg>
+        </span>
+        <span class="brand-title">Utsav AI</span>
+      </div>
+      <p class="login-tagline">Your AI Event Planner</p>
+
+      <!-- Google Sign-in Button -->
+      <button type="button" class="google-btn" id="google-signin-btn">
+        <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#4285F4" d="M23.52 12.27c0-.85-.08-1.68-.22-2.48H12v4.69h6.46a5.52 5.52 0 0 1-2.39 3.62v3h3.87c2.26-2.08 3.58-5.15 3.58-8.83z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.07 7.94-2.9l-3.87-3a7.17 7.17 0 0 1-10.67-3.76H1.4v3.09A12 12 0 0 0 12 24z"/>
+          <path fill="#FBBC05" d="M5.4 14.34a7.2 7.2 0 0 1 0-4.68V6.57H1.4a12 12 0 0 0 0 10.86l4-3.09z"/>
+          <path fill="#EA4335" d="M12 4.75c1.76 0 3.34.61 4.58 1.8l3.44-3.44C17.95 1.19 15.24 0 12 0A12 12 0 0 0 1.4 6.57l4 3.09A7.17 7.17 0 0 1 12 4.75z"/>
+        </svg>
+        <span>Sign in with Google</span>
+      </button>
+
+      <!-- Lightweight Static Google Account Form (Revealed on Click) -->
+      <form class="google-panel hidden" id="google-form" novalidate>
+        <p class="google-panel-title">Enter your Google account details</p>
+        <div class="form-field" style="margin-bottom: 12px;">
+          <label class="form-label" for="google-name-input">Full Name</label>
+          <input class="form-input" type="text" id="google-name-input" placeholder="e.g. Aarav Sharma" required />
+        </div>
+        <div class="form-field" style="margin-bottom: 14px;">
+          <label class="form-label" for="google-email-input">Google Email</label>
+          <input class="form-input" type="email" id="google-email-input" placeholder="e.g. aarav@gmail.com" required />
+        </div>
+        <div id="google-form-error" class="form-error hidden" style="margin-bottom: 12px;"></div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Continue to Setup</button>
+      </form>
+
+      <div class="login-divider">or</div>
+
+      <button type="button" class="btn btn-outline guest-btn" id="guest-signin-btn">Continue as Guest</button>
+
+      <button type="button" class="login-footer-link js-back-home">← Back to Landing Page</button>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       EVENT SETUP WIZARD (Shown when no "eventProfile" or via "Edit Event")
+       ======================================================================== -->
+  <section id="wizard-view" class="wizard-screen celebration-backdrop hidden" aria-label="Event Setup Wizard">
+    <div class="hero-motif" aria-hidden="true">
+      <svg class="mandala-top-right" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2">
+        <circle cx="100" cy="100" r="88" stroke-dasharray="4 4" />
+        <circle cx="100" cy="100" r="66" />
+      </svg>
+    </div>
+
+    <div class="wizard-shell">
+      <div class="wizard-topbar">
+        <div class="brand-logo">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L14.8 8.5L21.5 9.2L16.4 13.7L17.9 20.4L12 16.8L6.1 20.4L7.6 13.7L2.5 9.2L9.2 8.5L12 2Z" />
+            </svg>
+          </span>
+          <span>Utsav AI</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span class="wizard-user-label">Signed in as <strong id="wizard-user-name">Guest</strong></span>
+          <button type="button" class="btn btn-outline btn-sm hidden" id="wizard-cancel-edit-btn">Cancel Edit</button>
+        </div>
+      </div>
+
+      <div class="wizard-card">
+        <!-- Progress Bar -->
+        <div class="wizard-progress-wrap">
+          <div class="wizard-progress-meta">
+            <span class="wizard-step-label" id="wizard-step-kicker">Event Setup</span>
+            <span class="wizard-step-counter tabular-nums" id="wizard-step-counter">Step 1 of 4</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" id="wizard-progressbar">
+            <div class="progress-fill" id="wizard-progress-fill" style="width: 25%;"></div>
+          </div>
+          <div class="wizard-steps-row">
+            <div class="wizard-step-dot active" data-step-indicator="1">1. The Event</div>
+            <div class="wizard-step-dot" data-step-indicator="2">2. When &amp; Where</div>
+            <div class="wizard-step-dot" data-step-indicator="3">3. Budget &amp; Guests</div>
+            <div class="wizard-step-dot" data-step-indicator="4">4. Preferences</div>
+          </div>
+        </div>
+
+        <!-- STEP 1: THE EVENT -->
+        <div class="wizard-step-panel" id="wizard-step-1">
+          <h2 class="wizard-step-heading">Tell Shubh about your event</h2>
+          <p class="wizard-step-sub">Choose your celebration type, name it, and pick your ceremonies or functions.</p>
+
+          <div class="form-field">
+            <label class="form-label">Event Type</label>
+            <div class="option-card-grid" id="wiz-event-types" role="radiogroup" aria-label="Event Type">
+              <button type="button" class="option-card selected" data-value="Wedding">Wedding</button>
+              <button type="button" class="option-card" data-value="Engagement">Engagement</button>
+              <button type="button" class="option-card" data-value="Birthday">Birthday</button>
+              <button type="button" class="option-card" data-value="Anniversary">Anniversary</button>
+              <button type="button" class="option-card" data-value="Corporate Offsite">Corporate Offsite</button>
+              <button type="button" class="option-card" data-value="Baby Shower">Baby Shower</button>
+              <button type="button" class="option-card" data-value="Other">Other</button>
+            </div>
+          </div>
+
+          <div class="two-col-fields">
+            <div class="form-field">
+              <label class="form-label" for="wiz-event-name">Event Name</label>
+              <input class="form-input" type="text" id="wiz-event-name" placeholder="e.g. Aarav &amp; Meera's Wedding" />
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="wiz-hosts">Host Names</label>
+              <input class="form-input" type="text" id="wiz-hosts" placeholder="e.g. Sharma &amp; Kapoor Families" />
+            </div>
+          </div>
+
+          <div class="two-col-fields">
+            <div class="form-field">
+              <label class="form-label" for="wiz-days-count">Number of Days / Functions</label>
+              <input class="form-input tabular-nums" type="number" id="wiz-days-count" min="1" max="10" value="3" />
+            </div>
+          </div>
+
+          <div class="form-field" id="wiz-wedding-functions-wrap">
+            <label class="form-label">Wedding Functions (select all that apply)</label>
+            <div class="chip-select-group" id="wiz-functions-group">
+              <button type="button" class="select-chip" data-fn="Haldi">Haldi</button>
+              <button type="button" class="select-chip" data-fn="Mehendi">Mehendi</button>
+              <button type="button" class="select-chip selected" data-fn="Sangeet">Sangeet</button>
+              <button type="button" class="select-chip selected" data-fn="Wedding">Wedding</button>
+              <button type="button" class="select-chip selected" data-fn="Reception">Reception</button>
+            </div>
+          </div>
+
+          <div class="form-error hidden" id="wiz-err-1"></div>
+        </div>
+
+        <!-- STEP 2: WHEN & WHERE -->
+        <div class="wizard-step-panel hidden" id="wizard-step-2">
+          <h2 class="wizard-step-heading">When &amp; where is the celebration?</h2>
+          <p class="wizard-step-sub">Set your target date, city, and preferred venue vibe.</p>
+
+          <div class="two-col-fields">
+            <div class="form-field">
+              <label class="form-label" for="wiz-date">Event Date (future date)</label>
+              <input class="form-input tabular-nums" type="date" id="wiz-date" />
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="wiz-city">City</label>
+              <select class="form-select" id="wiz-city">
+                <option value="Mumbai">Mumbai</option>
+                <option value="Delhi NCR">Delhi NCR</option>
+                <option value="Bengaluru">Bengaluru</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Pune">Pune</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Jaipur">Jaipur</option>
+                <option value="Goa">Goa</option>
+                <option value="Udaipur">Udaipur</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="live-callout" aria-live="polite">
+            <div>
+              <strong id="wiz-live-countdown" class="tabular-nums">D-— to go</strong>
+              <span id="wiz-live-date-label" style="display: block;">Pick a future event date to see your live countdown</span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Venue Type Preference</label>
+            <div class="option-card-grid" id="wiz-venue-types" role="radiogroup" aria-label="Venue Type Preference">
+              <button type="button" class="option-card" data-value="Banquet Hall">Banquet Hall</button>
+              <button type="button" class="option-card selected" data-value="Hotel">Hotel</button>
+              <button type="button" class="option-card" data-value="Outdoor/Lawn">Outdoor/Lawn</button>
+              <button type="button" class="option-card" data-value="Beach">Beach</button>
+              <button type="button" class="option-card" data-value="Heritage Property">Heritage Property</button>
+              <button type="button" class="option-card" data-value="Home">Home</button>
+            </div>
+          </div>
+
+          <div class="form-error hidden" id="wiz-err-2"></div>
+        </div>
+
+        <!-- STEP 3: BUDGET & GUESTS -->
+        <div class="wizard-step-panel hidden" id="wizard-step-3">
+          <h2 class="wizard-step-heading">Budget &amp; guest estimate</h2>
+          <p class="wizard-step-sub">Adjust your total budget and guest headcount—Shubh calculates per-guest headroom live.</p>
+
+          <div class="form-field">
+            <label class="form-label" for="wiz-budget-num">Total Budget (INR)</label>
+            <div class="range-control-row">
+              <input class="range-slider" type="range" id="wiz-budget-range" min="50000" max="10000000" step="25000" value="1500000" />
+              <input class="form-input tabular-nums" type="number" id="wiz-budget-num" min="50000" max="10000000" step="5000" value="1500000" aria-label="Total Budget in INR" />
+            </div>
+            <div class="range-bounds tabular-nums">
+              <span>Rs 50,000</span>
+              <span id="wiz-budget-formatted" style="font-weight: 700; color: var(--maroon);">Rs 15,00,000</span>
+              <span>Rs 1,00,00,000 (1 Cr)</span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="wiz-guests-num">Expected Guest Count</label>
+            <div class="range-control-row">
+              <input class="range-slider" type="range" id="wiz-guests-range" min="10" max="2000" step="10" value="200" />
+              <input class="form-input tabular-nums" type="number" id="wiz-guests-num" min="10" max="2000" step="1" value="200" aria-label="Expected Guest Count" />
+            </div>
+            <div class="range-bounds tabular-nums">
+              <span>10 guests</span>
+              <span id="wiz-guests-formatted" style="font-weight: 700; color: var(--maroon);">200 guests</span>
+              <span>2,000 guests</span>
+            </div>
+          </div>
+
+          <div class="live-callout" aria-live="polite">
+            <div>
+              <strong id="wiz-per-guest" class="tabular-nums">Budget per guest: Rs 7,500</strong>
+              <span>Updates live across all ceremonies, catering, and venue allocations</span>
+            </div>
+          </div>
+
+          <div class="form-error hidden" id="wiz-err-3"></div>
+        </div>
+
+        <!-- STEP 4: PREFERENCES -->
+        <div class="wizard-step-panel hidden" id="wizard-step-4">
+          <h2 class="wizard-step-heading">Style, food &amp; top priorities</h2>
+          <p class="wizard-step-sub">Tell Shubh what matters most so your budget split shifts automatically in your favor.</p>
+
+          <div class="form-field">
+            <label class="form-label">Celebration Style (pick one or more)</label>
+            <div class="chip-select-group" id="wiz-style-group">
+              <button type="button" class="select-chip selected" data-style="Traditional">Traditional</button>
+              <button type="button" class="select-chip" data-style="Modern">Modern</button>
+              <button type="button" class="select-chip" data-style="Minimal">Minimal</button>
+              <button type="button" class="select-chip" data-style="Royal">Royal</button>
+              <button type="button" class="select-chip" data-style="Boho">Boho</button>
+              <button type="button" class="select-chip" data-style="Destination">Destination</button>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Food Preference</label>
+            <div class="chip-select-group" id="wiz-food-group" role="radiogroup" aria-label="Food Preference">
+              <button type="button" class="select-chip selected" data-food="Veg">Veg</button>
+              <button type="button" class="select-chip" data-food="Non-veg">Non-veg</button>
+              <button type="button" class="select-chip" data-food="Both">Both</button>
+              <button type="button" class="select-chip" data-food="Jain">Jain</button>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">
+              Top 3 Priorities <span id="wiz-priority-count" class="form-hint tabular-nums">(0 / 3 selected · +3% budget boost each)</span>
+            </label>
+            <div class="chip-select-group" id="wiz-priority-group">
+              <button type="button" class="select-chip" data-priority="Venue">Venue</button>
+              <button type="button" class="select-chip" data-priority="Food">Food</button>
+              <button type="button" class="select-chip" data-priority="Decor">Decor</button>
+              <button type="button" class="select-chip" data-priority="Photography">Photography</button>
+              <button type="button" class="select-chip" data-priority="Entertainment">Entertainment</button>
+              <button type="button" class="select-chip" data-priority="Attire">Attire</button>
+              <button type="button" class="select-chip" data-priority="Guest Experience">Guest Experience</button>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="wiz-notes">Anything else Shubh should know?</label>
+            <textarea class="form-textarea" id="wiz-notes" placeholder="e.g. Morning pheras, elderly guests need elevator access, live Sufi band for Sangeet..."></textarea>
+          </div>
+
+          <div class="form-error hidden" id="wiz-err-4"></div>
+        </div>
+
+        <!-- SUMMARY & DONUT CHART STEP -->
+        <div class="wizard-step-panel hidden" id="wizard-step-summary">
+          <h2 class="wizard-step-heading">Your personalized event blueprint</h2>
+          <p class="wizard-step-sub">Review your celebration brief and AI-adjusted budget split before generating your workspace.</p>
+
+          <div class="summary-grid">
+            <div class="summary-details-card">
+              <h3>Event Summary</h3>
+              <div class="summary-list" id="wiz-summary-list"></div>
+            </div>
+
+            <div class="summary-chart-card">
+              <h3>Smart Budget Split</h3>
+              <div class="donut-wrap">
+                <div class="donut-svg-container">
+                  <svg id="budget-donut-svg" viewBox="0 0 200 200" width="210" height="210" aria-label="Budget Split Donut Chart"></svg>
+                  <div class="donut-center-label">
+                    <span>Total Budget</span>
+                    <strong id="donut-total-label" class="tabular-nums">Rs 15,00,000</strong>
+                  </div>
+                </div>
+                <div class="donut-legend" id="budget-donut-legend"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wizard Navigation Controls -->
+        <div class="wizard-actions">
+          <button type="button" class="btn btn-outline" id="wiz-prev-btn">Back</button>
+          <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn btn-primary" id="wiz-next-btn">Next Step</button>
+            <button type="button" class="btn btn-maroon hidden" id="wiz-generate-btn">Generate My Plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       VIEW 2: APP SHELL
+       ======================================================================== -->
+  <div id="app-view" class="app-shell hidden">
+
+    <!-- Left Sidebar (Collapses to Bottom Tab Bar on Mobile) -->
+    <aside class="app-sidebar" aria-label="Planner Navigation">
+      <div>
+        <div class="sidebar-header">
+          <button type="button" class="brand-logo js-back-home" title="Back to Landing Page">
+            <span class="brand-mark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L14.8 8.5L21.5 9.2L16.4 13.7L17.9 20.4L12 16.8L6.1 20.4L7.6 13.7L2.5 9.2L9.2 8.5L12 2Z" />
+              </svg>
+            </span>
+            <span>Utsav AI</span>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav" role="tablist" aria-label="Workspace Tabs">
+          <button type="button" class="sidebar-tab active" data-tab="dashboard" role="tab" aria-selected="true" aria-controls="tab-dashboard">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="9" rx="1.5" />
+              <rect x="14" y="3" width="7" height="5" rx="1.5" />
+              <rect x="14" y="12" width="7" height="9" rx="1.5" />
+              <rect x="3" y="16" width="7" height="5" rx="1.5" />
+            </svg>
+            <span>Dashboard</span>
+          </button>
+
+          <button type="button" class="sidebar-tab" data-tab="timeline" role="tab" aria-selected="false" aria-controls="tab-timeline">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            <span>Timeline</span>
+          </button>
+
+          <button type="button" class="sidebar-tab" data-tab="vendors" role="tab" aria-selected="false" aria-controls="tab-vendors">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>Vendors</span>
+          </button>
+
+          <button type="button" class="sidebar-tab" data-tab="guests" role="tab" aria-selected="false" aria-controls="tab-guests">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            <span>Guests</span>
+          </button>
+
+          <button type="button" class="sidebar-tab" data-tab="budget" role="tab" aria-selected="false" aria-controls="tab-budget">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            <span>Budget</span>
+          </button>
+
+          <button type="button" class="sidebar-tab" data-tab="shubh-ai" role="tab" aria-selected="false" aria-controls="tab-shubh-ai">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <span>Shubh AI</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user-chip">
+          <strong id="sidebar-user-name">Planner</strong>
+          <span id="sidebar-user-email">planner@utsav.ai</span>
+        </div>
+        <button type="button" class="back-home-btn js-back-home">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          <span>Back to Landing</span>
+        </button>
+        <button type="button" class="back-home-btn" id="signout-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main App Content -->
+    <div class="app-main">
+      <!-- Top Bar -->
+      <header class="app-topbar">
+        <div class="topbar-event">
+          <span class="topbar-event-title" id="app-event-name">My Celebration</span>
+          <span class="topbar-event-sep" aria-hidden="true">·</span>
+          <span class="topbar-event-type" id="app-event-type-label">Wedding</span>
+        </div>
+
+        <div class="topbar-actions">
+          <!-- Working Dynamic Countdown Pill -->
+          <div class="countdown-pill" id="app-countdown-pill" title="Days until your event">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <span id="app-countdown-text">D-0 to go</span>
+          </div>
+
+          <!-- Reminders Bell -->
+          <button type="button" class="bell-btn" id="bell-btn" aria-label="View Reminders" aria-expanded="false" aria-controls="reminder-popover">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <span class="bell-count" id="bell-count">3</span>
+          </button>
+
+          <!-- Reminder Dropdown Popover -->
+          <div class="reminder-popover hidden" id="reminder-popover" role="region" aria-label="Auto Reminders">
+            <div class="reminder-popover-header">
+              <h4>Auto Reminders</h4>
+              <button type="button" class="reminder-clear-btn" id="mark-read-btn">Mark read</button>
+            </div>
+            <div id="reminder-list">
+              <div class="reminder-item">
+                Caterer tasting confirmation
+                <span>Due in 2 days · Vendors</span>
+              </div>
+              <div class="reminder-item">
+                Finalize guest list for digital invites
+                <span>RSVP Nudge · Guests</span>
+              </div>
+              <div class="reminder-item">
+                Lock priority vendor bookings early
+                <span>Smart Timeline · Dashboard</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- App Tab Panels (Only One Visible at a Time) -->
+      <main class="app-content">
+
+        <!-- TAB 1: DASHBOARD -->
+        <section class="tab-panel active" id="tab-dashboard" role="tabpanel">
+          <div class="tab-header">
+            <div>
+              <h1>Dashboard</h1>
+              <p id="dashboard-subtitle">High-level command center for your celebration countdown, health, tasks, budget, and RSVPs.</p>
+            </div>
+            <div class="tab-header-actions">
+              <button type="button" class="btn btn-outline btn-sm" id="edit-event-btn">Edit Event</button>
+              <button type="button" class="mobile-back-link js-back-home">← Landing Page</button>
+            </div>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-6">
+              <div>
+                <span class="placeholder-kicker">Overview · Live Countdown</span>
+                <h3>Countdown</h3>
+                <div class="placeholder-value" id="dash-countdown-val">D-0 to go</div>
+                <p id="dash-countdown-sub">Days, hours, and ceremony milestones counting down to your event date.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span id="dash-city-venue">City · Venue</span>
+                <span>Event Timer Module</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box span-6">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Diagnostics</span>
+                <h3>Plan Health</h3>
+                <p>AI readiness score combining vendor bookings, task progress, and budget buffer.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span id="dash-priorities-summary">Top Priorities</span>
+                <span>Health Meter Module</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Action Queue</span>
+                <h3>Upcoming Tasks</h3>
+                <p>Prioritized next actions assigned to you, family members, and Shubh AI.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Task Feed Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Financials · Allocated</span>
+                <h3>Budget Snapshot</h3>
+                <div class="placeholder-value" id="dash-budget-val">Rs 0</div>
+                <p id="dash-budget-sub">Total budget allocated across 8 celebration categories.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Spend Summary Module</span>
+                <span>Configured</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Attendance · Target</span>
+                <h3>RSVP Snapshot</h3>
+                <div class="placeholder-value" id="dash-guests-val">0 Guests</div>
+                <p id="dash-guests-sub">Expected guest count &amp; food preference tracking across functions.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Guest Pulse Module</span>
+                <span>Configured</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 2: TIMELINE -->
+        <section class="tab-panel" id="tab-timeline" role="tabpanel">
+          <div class="tab-header">
+            <div>
+              <h1>Timeline</h1>
+              <p>Stay ahead of every ceremony milestone with smart sequencing and overdue alerts.</p>
+            </div>
+            <button type="button" class="mobile-back-link js-back-home">← Landing Page</button>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-12">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Schedule</span>
+                <h3>Month-by-Month Timeline</h3>
+                <p>Chronological roadmap from 6 months out through the final week and day-of run sheet.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Interactive Roadmap Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box span-8">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Execution</span>
+                <h3>Checklist</h3>
+                <p>Filterable to-do list grouped by ceremony, owner, and vendor category.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Task Manager Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Attention</span>
+                <h3>Overdue Tasks</h3>
+                <p>Flagged items needing immediate attention or one-click Shubh rescheduling.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Priority Queue Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 3: VENDORS -->
+        <section class="tab-panel" id="tab-vendors" role="tabpanel">
+          <div class="tab-header">
+            <div>
+              <h1>Vendors</h1>
+              <p>Discover AI-matched partners, compare quotes, and keep your booked team organized.</p>
+            </div>
+            <button type="button" class="mobile-back-link js-back-home">← Landing Page</button>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Discovery</span>
+                <h3>Suggested Vendors</h3>
+                <p>Curated venues, caterers, photographers, and decorators matched to your budget.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>AI Matchmaker Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Evaluation</span>
+                <h3>Shortlist</h3>
+                <p>Side-by-side quote comparison, tasting notes, and availability status.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Quote Compare Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Confirmed</span>
+                <h3>Booked</h3>
+                <p>Confirmed vendor contacts, signed contracts, and deliverables tracker.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Confirmed Roster Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 4: GUESTS -->
+        <section class="tab-panel" id="tab-guests" role="tabpanel">
+          <div class="tab-header">
+            <div>
+              <h1>Guests</h1>
+              <p>Coordinate invitations, household groups, and function-wise RSVPs effortlessly.</p>
+            </div>
+            <button type="button" class="mobile-back-link js-back-home">← Landing Page</button>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-8">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Directory</span>
+                <h3>Guest List</h3>
+                <p>Master directory with family sides, plus-ones, dietary preferences, and stay needs.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Household Directory Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Breakdown</span>
+                <h3>RSVP Summary</h3>
+                <p>Headcount breakdown per event (Mehendi, Sangeet, Wedding, Reception).</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Headcount Analytics Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box span-12">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Outreach</span>
+                <h3>Send Invites</h3>
+                <p>Digital invite composer with WhatsApp/email dispatch and automated RSVP follow-ups.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Invite Broadcast Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 5: BUDGET -->
+        <section class="tab-panel" id="tab-budget" role="tabpanel">
+          <div class="tab-header">
+            <div>
+              <h1>Budget</h1>
+              <p>Guard your target spend with intelligent category allocations and payment schedules.</p>
+            </div>
+            <button type="button" class="mobile-back-link js-back-home">← Landing Page</button>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-6">
+              <div>
+                <span class="placeholder-kicker">Allocation · Saved Plan</span>
+                <h3>Budget Split</h3>
+                <p>AI-recommended allocation across Venue, Catering, Decor, Photography, Attire, Entertainment, Invitations, and Contingency.</p>
+                <div class="budget-split-mini" id="app-budget-split-list"></div>
+              </div>
+              <div class="placeholder-meta">
+                <span>Category Allocator Module</span>
+                <span>Configured</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Tracking</span>
+                <h3>Expenses</h3>
+                <p>Itemized expense ledger tracking quotes, advances paid, and variances.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Expense Ledger Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Schedule</span>
+                <h3>Payments Due</h3>
+                <p>Upcoming vendor installment calendar with automated due-date reminders.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Payment Schedule Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 6: SHUBH AI -->
+        <section class="tab-panel" id="tab-shubh-ai" role="tabpanel">
+          <div class="tab-header">
+            <div>
+              <h1>Shubh AI</h1>
+              <p>Your always-on AI planner for ideas, negotiations, and instant plan adjustments.</p>
+            </div>
+            <button type="button" class="mobile-back-link js-back-home">← Landing Page</button>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-8">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Concierge</span>
+                <h3>Chat with Shubh</h3>
+                <p>Conversational AI workspace to ask ritual questions, draft vendor messages, or brainstorm themes.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>AI Assistant Stream Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-kicker">Future Feature · Adaptation</span>
+                <h3>What Changed? Replan</h3>
+                <p>Update guest count, date, or budget cap to automatically rebalance timelines and costs.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Dynamic Replanner Module</span>
+                <span>Planned</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       8. VANILLA JAVASCRIPT — Persistence, Auth, Wizard, Budget Math & Shell
+       ======================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ----------------------------------------------------------------------
+      // Storage Helpers
+      // ----------------------------------------------------------------------
+      const STORAGE_USER_KEY = 'userProfile';
+      const STORAGE_EVENT_KEY = 'eventProfile';
+
+      function getStored(key) {
+        try {
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : null;
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function saveStored(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (err) {
+          // Ignore storage quota errors cleanly
+        }
+      }
+
+      function formatINR(amount) {
+        return 'Rs ' + Math.round(Number(amount) || 0).toLocaleString('en-IN');
+      }
+
+      function getTomorrowISO() {
+        const now = new Date();
+        const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        const y = tomorrow.getFullYear();
+        const m = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const d = String(tomorrow.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+      }
+
+      function daysUntilDate(dateStr) {
+        if (!dateStr) return null;
+        const parts = dateStr.split('-').map(Number);
+        if (parts.length !== 3 || parts.some(isNaN)) return null;
+        const eventDay = new Date(parts[0], parts[1] - 1, parts[2]);
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        return Math.round((eventDay - today) / (1000 * 60 * 60 * 24));
+      }
+
+      // ----------------------------------------------------------------------
+      // View References
+      // ----------------------------------------------------------------------
+      const landingView = document.getElementById('landing-view');
+      const loginView = document.getElementById('login-view');
+      const wizardView = document.getElementById('wizard-view');
+      const appView = document.getElementById('app-view');
+
+      const startButtons = document.querySelectorAll('.js-start-planning');
+      const backHomeButtons = document.querySelectorAll('.js-back-home');
+
+      // Landing UI
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.js-mobile-link');
+      const eventChips = document.querySelectorAll('.event-chip');
+      const chipCaption = document.getElementById('chip-caption');
+
+      // Login UI
+      const googleSigninBtn = document.getElementById('google-signin-btn');
+      const googleForm = document.getElementById('google-form');
+      const googleNameInput = document.getElementById('google-name-input');
+      const googleEmailInput = document.getElementById('google-email-input');
+      const googleFormError = document.getElementById('google-form-error');
+      const guestSigninBtn = document.getElementById('guest-signin-btn');
+
+      // Wizard UI
+      const wizardUserName = document.getElementById('wizard-user-name');
+      const wizardCancelEditBtn = document.getElementById('wizard-cancel-edit-btn');
+      const wizardStepKicker = document.getElementById('wizard-step-kicker');
+      const wizardStepCounter = document.getElementById('wizard-step-counter');
+      const wizardProgressbar = document.getElementById('wizard-progressbar');
+      const wizardProgressFill = document.getElementById('wizard-progress-fill');
+      const wizardStepDots = document.querySelectorAll('[data-step-indicator]');
+
+      const stepPanels = {
+        1: document.getElementById('wizard-step-1'),
+        2: document.getElementById('wizard-step-2'),
+        3: document.getElementById('wizard-step-3'),
+        4: document.getElementById('wizard-step-4'),
+        5: document.getElementById('wizard-step-summary')
+      };
+
+      const wizEventTypeBtns = document.querySelectorAll('#wiz-event-types .option-card');
+      const wizEventName = document.getElementById('wiz-event-name');
+      const wizHosts = document.getElementById('wiz-hosts');
+      const wizDaysCount = document.getElementById('wiz-days-count');
+      const wizWeddingFnWrap = document.getElementById('wiz-wedding-functions-wrap');
+      const wizFunctionChips = document.querySelectorAll('#wiz-functions-group .select-chip');
+
+      const wizDate = document.getElementById('wiz-date');
+      const wizCity = document.getElementById('wiz-city');
+      const wizVenueTypeBtns = document.querySelectorAll('#wiz-venue-types .option-card');
+      const wizLiveCountdown = document.getElementById('wiz-live-countdown');
+      const wizLiveDateLabel = document.getElementById('wiz-live-date-label');
+
+      const wizBudgetRange = document.getElementById('wiz-budget-range');
+      const wizBudgetNum = document.getElementById('wiz-budget-num');
+      const wizBudgetFormatted = document.getElementById('wiz-budget-formatted');
+      const wizGuestsRange = document.getElementById('wiz-guests-range');
+      const wizGuestsNum = document.getElementById('wiz-guests-num');
+      const wizGuestsFormatted = document.getElementById('wiz-guests-formatted');
+      const wizPerGuest = document.getElementById('wiz-per-guest');
+
+      const wizStyleChips = document.querySelectorAll('#wiz-style-group .select-chip');
+      const wizFoodChips = document.querySelectorAll('#wiz-food-group .select-chip');
+      const wizPriorityChips = document.querySelectorAll('#wiz-priority-group .select-chip');
+      const wizPriorityCount = document.getElementById('wiz-priority-count');
+      const wizNotes = document.getElementById('wiz-notes');
+
+      const wizPrevBtn = document.getElementById('wiz-prev-btn');
+      const wizNextBtn = document.getElementById('wiz-next-btn');
+      const wizGenerateBtn = document.getElementById('wiz-generate-btn');
+
+      const wizSummaryList = document.getElementById('wiz-summary-list');
+      const budgetDonutSvg = document.getElementById('budget-donut-svg');
+      const donutTotalLabel = document.getElementById('donut-total-label');
+      const budgetDonutLegend = document.getElementById('budget-donut-legend');
+
+      // App Shell UI
+      const sidebarTabs = document.querySelectorAll('.sidebar-tab');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      const sidebarUserName = document.getElementById('sidebar-user-name');
+      const sidebarUserEmail = document.getElementById('sidebar-user-email');
+      const signoutBtn = document.getElementById('signout-btn');
+      const editEventBtn = document.getElementById('edit-event-btn');
+
+      const appEventName = document.getElementById('app-event-name');
+      const appEventTypeLabel = document.getElementById('app-event-type-label');
+      const appCountdownText = document.getElementById('app-countdown-text');
+      const dashCountdownVal = document.getElementById('dash-countdown-val');
+      const dashCountdownSub = document.getElementById('dash-countdown-sub');
+      const dashCityVenue = document.getElementById('dash-city-venue');
+      const dashPrioritiesSummary = document.getElementById('dash-priorities-summary');
+      const dashBudgetVal = document.getElementById('dash-budget-val');
+      const dashBudgetSub = document.getElementById('dash-budget-sub');
+      const dashGuestsVal = document.getElementById('dash-guests-val');
+      const dashGuestsSub = document.getElementById('dash-guests-sub');
+      const appBudgetSplitList = document.getElementById('app-budget-split-list');
+
+      const bellBtn = document.getElementById('bell-btn');
+      const bellCount = document.getElementById('bell-count');
+      const reminderPopover = document.getElementById('reminder-popover');
+      const markReadBtn = document.getElementById('mark-read-btn');
+
+      // Landing Event Chip Captions
+      const landingEventCaptions = {
+        'Wedding': 'Multi-day ceremonies, vendor coordination, and full family RSVP tracking ready.',
+        'Engagement': 'Ring ceremony timeline, floral stage shortlist, and intimate guest list ready.',
+        'Birthday': 'Theme decor moodboard, catering headcount, and music playlist checklist ready.',
+        'Anniversary': 'Dinner seating layout, family tribute timeline, and budget guardrails ready.',
+        'Corporate Offsite': 'Resort room blocks, keynote run-of-show, and travel logistics tracker ready.',
+        'Baby Shower': 'Traditional ritual checklist, pastel floral decor budget, and guest invites ready.'
+      };
+
+      let preferredLandingEventType = 'Wedding';
+
+      // ----------------------------------------------------------------------
+      // Budget Split Configuration & Calculation
+      // ----------------------------------------------------------------------
+      const BUDGET_CATEGORIES = [
+        'Venue',
+        'Catering',
+        'Decor',
+        'Photography',
+        'Attire & Jewellery',
+        'Entertainment',
+        'Invitations & Gifts',
+        'Contingency'
+      ];
+
+      const BASE_SPLITS = {
+        'Wedding': {
+          'Venue': 25,
+          'Catering': 30,
+          'Decor': 12,
+          'Photography': 8,
+          'Attire & Jewellery': 10,
+          'Entertainment': 5,
+          'Invitations & Gifts': 4,
+          'Contingency': 6
+        },
+        'Engagement': {
+          'Venue': 24,
+          'Catering': 28,
+          'Decor': 16,
+          'Photography': 10,
+          'Attire & Jewellery': 10,
+          'Entertainment': 5,
+          'Invitations & Gifts': 3,
+          'Contingency': 4
+        },
+        'Birthday': {
+          'Venue': 22,
+          'Catering': 32,
+          'Decor': 16,
+          'Photography': 8,
+          'Attire & Jewellery': 4,
+          'Entertainment': 10,
+          'Invitations & Gifts': 4,
+          'Contingency': 4
+        },
+        'Anniversary': {
+          'Venue': 24,
+          'Catering': 30,
+          'Decor': 14,
+          'Photography': 9,
+          'Attire & Jewellery': 7,
+          'Entertainment': 8,
+          'Invitations & Gifts': 4,
+          'Contingency': 4
+        },
+        'Corporate Offsite': {
+          'Venue': 32,
+          'Catering': 28,
+          'Decor': 7,
+          'Photography': 6,
+          'Attire & Jewellery': 3,
+          'Entertainment': 12,
+          'Invitations & Gifts': 6,
+          'Contingency': 6
+        },
+        'Baby Shower': {
+          'Venue': 20,
+          'Catering': 28,
+          'Decor': 20,
+          'Photography': 10,
+          'Attire & Jewellery': 6,
+          'Entertainment': 6,
+          'Invitations & Gifts': 6,
+          'Contingency': 4
+        },
+        'Other': {
+          'Venue': 25,
+          'Catering': 30,
+          'Decor': 14,
+          'Photography': 8,
+          'Attire & Jewellery': 5,
+          'Entertainment': 8,
+          'Invitations & Gifts': 4,
+          'Contingency': 6
+        }
+      };
+
+      const PRIORITY_TO_CATEGORY = {
+        'Venue': 'Venue',
+        'Food': 'Catering',
+        'Decor': 'Decor',
+        'Photography': 'Photography',
+        'Entertainment': 'Entertainment',
+        'Attire': 'Attire & Jewellery',
+        'Guest Experience': 'Invitations & Gifts'
+      };
+
+      const DONUT_COLORS = [
+        '#7A1F3D', // Venue - Maroon
+        '#E8A317', // Catering - Marigold
+        '#C45B7A', // Decor - Rose Maroon
+        '#F2B84B', // Photography - Warm Amber
+        '#5B142C', // Attire & Jewellery - Deep Burgundy
+        '#D97706', // Entertainment - Saffron
+        '#E6A8B8', // Invitations & Gifts - Dusty Blush
+        '#8E7A81'  // Contingency - Warm Mauve Slate
+      ];
+
+      function computeBudgetSplit(eventType, totalBudget, priorities) {
+        const base = { ...(BASE_SPLITS[eventType] || BASE_SPLITS['Other']) };
+        const boostedCategories = priorities
+          .map((p) => PRIORITY_TO_CATEGORY[p])
+          .filter(Boolean);
+
+        const uniqueBoosted = [...new Set(boostedCategories)];
+        if (uniqueBoosted.length > 0 && uniqueBoosted.length < BUDGET_CATEGORIES.length) {
+          const totalBoost = uniqueBoosted.length * 3;
+          const others = BUDGET_CATEGORIES.filter((cat) => !uniqueBoosted.includes(cat));
+          const deductionPerOther = totalBoost / others.length;
+
+          uniqueBoosted.forEach((cat) => {
+            base[cat] = Number((base[cat] + 3).toFixed(2));
+          });
+          others.forEach((cat) => {
+            base[cat] = Number((base[cat] - deductionPerOther).toFixed(2));
+          });
+        }
+
+        // Convert percentages to INR amounts and ensure exact sum === totalBudget
+        const amounts = {};
+        let runningTotal = 0;
+        BUDGET_CATEGORIES.forEach((cat, idx) => {
+          if (idx === BUDGET_CATEGORIES.length - 1) {
+            amounts[cat] = Math.max(0, totalBudget - runningTotal);
+          } else {
+            const val = Math.round((totalBudget * base[cat]) / 100);
+            amounts[cat] = val;
+            runningTotal += val;
+          }
+        });
+
+        return { percentages: base, amounts };
+      }
+
+      // ----------------------------------------------------------------------
+      // View Switching (Single Active Screen at a Time)
+      // ----------------------------------------------------------------------
+      function showOnlyView(viewName) {
+        landingView.classList.toggle('hidden', viewName !== 'landing');
+        loginView.classList.toggle('hidden', viewName !== 'login');
+        wizardView.classList.toggle('hidden', viewName !== 'wizard');
+        appView.classList.toggle('hidden', viewName !== 'app');
+
+        mobileMenu.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        reminderPopover.classList.add('hidden');
+        bellBtn.setAttribute('aria-expanded', 'false');
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }
+
+      function enterPlannerFlow() {
+        const user = getStored(STORAGE_USER_KEY);
+        if (!user) {
+          googleForm.classList.add('hidden');
+          googleFormError.classList.add('hidden');
+          showOnlyView('login');
+          return;
+        }
+
+        const evt = getStored(STORAGE_EVENT_KEY);
+        if (!evt) {
+          openWizard(null);
+          return;
+        }
+
+        renderAppShell(user, evt);
+        showOnlyView('app');
+      }
+
+      startButtons.forEach((btn) => {
+        btn.addEventListener('click', enterPlannerFlow);
+      });
+
+      backHomeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => showOnlyView('landing'));
+      });
+
+      // ----------------------------------------------------------------------
+      // Landing Page: Mobile Menu & Event Chips
+      // ----------------------------------------------------------------------
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      eventChips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          eventChips.forEach((c) => c.classList.remove('active'));
+          chip.classList.add('active');
+          preferredLandingEventType = chip.dataset.event;
+          const desc = landingEventCaptions[preferredLandingEventType] || '';
+          chipCaption.innerHTML = `<strong>${preferredLandingEventType}</strong> · ${desc}`;
+        });
+      });
+
+      // ----------------------------------------------------------------------
+      // 1. LOGIN SCREEN LOGIC
+      // ----------------------------------------------------------------------
+      function completeLogin(profile) {
+        saveStored(STORAGE_USER_KEY, profile);
+        const existingEvent = getStored(STORAGE_EVENT_KEY);
+        if (existingEvent) {
+          renderAppShell(profile, existingEvent);
+          showOnlyView('app');
+        } else {
+          openWizard(null);
+        }
+      }
+
+      googleSigninBtn.addEventListener('click', () => {
+        googleForm.classList.toggle('hidden');
+        googleFormError.classList.add('hidden');
+        if (!googleForm.classList.contains('hidden')) {
+          googleNameInput.focus();
+        }
+      });
+
+      googleForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = googleNameInput.value.trim();
+        const email = googleEmailInput.value.trim();
+
+        if (!name) {
+          googleFormError.textContent = 'Please enter your name.';
+          googleFormError.classList.remove('hidden');
+          return;
+        }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          googleFormError.textContent = 'Please enter a valid Google email address.';
+          googleFormError.classList.remove('hidden');
+          return;
+        }
+
+        googleFormError.classList.add('hidden');
+        completeLogin({ name, email });
+      });
+
+      guestSigninBtn.addEventListener('click', () => {
+        completeLogin({ name: 'Guest Planner', email: 'guest@utsav.ai' });
+      });
+
+      // ----------------------------------------------------------------------
+      // 2. EVENT SETUP WIZARD LOGIC
+      // ----------------------------------------------------------------------
+      let wizardState = {
+        step: 1,
+        isEditing: false,
+        eventType: 'Wedding',
+        eventName: '',
+        hosts: '',
+        daysCount: 3,
+        functions: ['Sangeet', 'Wedding', 'Reception'],
+        date: '',
+        city: 'Jaipur',
+        venueType: 'Hotel',
+        budget: 1500000,
+        guestCount: 200,
+        style: ['Traditional'],
+        food: 'Veg',
+        priorities: [],
+        notes: ''
+      };
+
+      function openWizard(existingProfile) {
+        const user = getStored(STORAGE_USER_KEY) || { name: 'Guest Planner', email: 'guest@utsav.ai' };
+        wizardUserName.textContent = user.name;
+
+        wizDate.min = getTomorrowISO();
+
+        if (existingProfile) {
+          wizardState = {
+            step: 1,
+            isEditing: true,
+            eventType: existingProfile.eventType || 'Wedding',
+            eventName: existingProfile.eventName || '',
+            hosts: existingProfile.hosts || '',
+            daysCount: existingProfile.functions ? Math.max(1, existingProfile.functions.length) : 3,
+            functions: Array.isArray(existingProfile.functions) ? [...existingProfile.functions] : [],
+            date: existingProfile.date || '',
+            city: existingProfile.city || 'Jaipur',
+            venueType: existingProfile.venueType || 'Hotel',
+            budget: Number(existingProfile.budget) || 1500000,
+            guestCount: Number(existingProfile.guestCount) || 200,
+            style: Array.isArray(existingProfile.style) ? [...existingProfile.style] : ['Traditional'],
+            food: existingProfile.food || 'Veg',
+            priorities: Array.isArray(existingProfile.priorities) ? [...existingProfile.priorities] : [],
+            notes: existingProfile.notes || ''
+          };
+          wizardCancelEditBtn.classList.remove('hidden');
+        } else {
+          const initialType = preferredLandingEventType || 'Wedding';
+          wizardState = {
+            step: 1,
+            isEditing: false,
+            eventType: initialType,
+            eventName: '',
+            hosts: '',
+            daysCount: initialType === 'Wedding' ? 3 : 1,
+            functions: initialType === 'Wedding' ? ['Sangeet', 'Wedding', 'Reception'] : [initialType],
+            date: '',
+            city: 'Jaipur',
+            venueType: 'Hotel',
+            budget: 1500000,
+            guestCount: 200,
+            style: ['Traditional'],
+            food: 'Veg',
+            priorities: [],
+            notes: ''
+          };
+          wizardCancelEditBtn.classList.add('hidden');
+        }
+
+        syncWizardDOMFromState();
+        renderWizardStep();
+        showOnlyView('wizard');
+      }
+
+      function syncWizardDOMFromState() {
+        // Step 1
+        wizEventTypeBtns.forEach((btn) => {
+          btn.classList.toggle('selected', btn.dataset.value === wizardState.eventType);
+        });
+        wizEventName.value = wizardState.eventName;
+        wizHosts.value = wizardState.hosts;
+        wizDaysCount.value = wizardState.daysCount;
+        toggleWeddingFunctionsVisibility();
+        wizFunctionChips.forEach((chip) => {
+          chip.classList.toggle('selected', wizardState.functions.includes(chip.dataset.fn));
+        });
+
+        // Step 2
+        wizDate.value = wizardState.date;
+        wizCity.value = wizardState.city;
+        wizVenueTypeBtns.forEach((btn) => {
+          btn.classList.toggle('selected', btn.dataset.value === wizardState.venueType);
+        });
+        updateLiveCountdownInWizard();
+
+        // Step 3
+        wizBudgetRange.value = wizardState.budget;
+        wizBudgetNum.value = wizardState.budget;
+        wizGuestsRange.value = wizardState.guestCount;
+        wizGuestsNum.value = wizardState.guestCount;
+        updateLiveBudgetStats();
+
+        // Step 4
+        wizStyleChips.forEach((chip) => {
+          chip.classList.toggle('selected', wizardState.style.includes(chip.dataset.style));
+        });
+        wizFoodChips.forEach((chip) => {
+          chip.classList.toggle('selected', chip.dataset.food === wizardState.food);
+        });
+        renderPriorityChips();
+        wizNotes.value = wizardState.notes;
+
+        clearWizardErrors();
+      }
+
+      function toggleWeddingFunctionsVisibility() {
+        const isWedding = wizardState.eventType === 'Wedding';
+        wizWeddingFnWrap.classList.toggle('hidden', !isWedding);
+      }
+
+      function clearWizardErrors() {
+        for (let i = 1; i <= 4; i++) {
+          const el = document.getElementById(`wiz-err-${i}`);
+          if (el) {
+            el.textContent = '';
+            el.classList.add('hidden');
+          }
+        }
+      }
+
+      function showWizardError(step, message) {
+        const el = document.getElementById(`wiz-err-${step}`);
+        if (el) {
+          el.textContent = message;
+          el.classList.remove('hidden');
+        }
+      }
+
+      function renderWizardStep() {
+        const step = wizardState.step;
+        Object.keys(stepPanels).forEach((key) => {
+          stepPanels[key].classList.toggle('hidden', Number(key) !== step);
+        });
+
+        const progressStep = Math.min(step, 4);
+        wizardProgressFill.style.width = `${progressStep * 25}%`;
+        wizardProgressbar.setAttribute('aria-valuenow', String(progressStep));
+
+        if (step <= 4) {
+          wizardStepKicker.textContent = wizardState.isEditing ? 'Edit Event' : 'Event Setup';
+          wizardStepCounter.textContent = `Step ${step} of 4`;
+          wizNextBtn.classList.remove('hidden');
+          wizNextBtn.textContent = step === 4 ? 'Review Plan & Budget' : 'Next Step';
+          wizGenerateBtn.classList.add('hidden');
+        } else {
+          wizardStepKicker.textContent = 'Plan Summary';
+          wizardStepCounter.textContent = 'Ready to Generate';
+          wizNextBtn.classList.add('hidden');
+          wizGenerateBtn.classList.remove('hidden');
+          renderWizardSummaryAndDonut();
+        }
+
+        wizardStepDots.forEach((dot) => {
+          const idx = Number(dot.dataset.stepIndicator);
+          dot.classList.toggle('active', idx === step || (step === 5 && idx === 4));
+          dot.classList.toggle('done', idx < step);
+        });
+
+        wizPrevBtn.textContent = step === 1 ? (wizardState.isEditing ? 'Cancel' : 'Back to Login') : 'Back';
+      }
+
+      // Step 1 Interactions
+      const WEDDING_FUNCTION_OPTIONS = ['Haldi', 'Mehendi', 'Sangeet', 'Wedding', 'Reception'];
+
+      wizEventTypeBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          wizardState.eventType = btn.dataset.value;
+          wizEventTypeBtns.forEach((b) => b.classList.toggle('selected', b === btn));
+          toggleWeddingFunctionsVisibility();
+          if (wizardState.eventType === 'Wedding') {
+            const validWeddingFns = wizardState.functions.filter((fn) => WEDDING_FUNCTION_OPTIONS.includes(fn));
+            wizardState.functions = validWeddingFns.length > 0 ? validWeddingFns : ['Sangeet', 'Wedding', 'Reception'];
+            wizFunctionChips.forEach((c) => c.classList.toggle('selected', wizardState.functions.includes(c.dataset.fn)));
+          }
+        });
+      });
+
+      wizFunctionChips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const fn = chip.dataset.fn;
+          if (wizardState.functions.includes(fn)) {
+            wizardState.functions = wizardState.functions.filter((item) => item !== fn);
+          } else {
+            wizardState.functions.push(fn);
+          }
+          chip.classList.toggle('selected', wizardState.functions.includes(fn));
+        });
+      });
+
+      // Step 2 Interactions
+      function updateLiveCountdownInWizard() {
+        const val = wizDate.value;
+        wizardState.date = val;
+        const days = daysUntilDate(val);
+        if (days === null) {
+          wizLiveCountdown.textContent = 'D-— to go';
+          wizLiveDateLabel.textContent = 'Pick a future event date to see your live countdown';
+        } else if (days <= 0) {
+          wizLiveCountdown.textContent = 'Date must be in the future';
+          wizLiveDateLabel.textContent = 'Please select tomorrow or a later date';
+        } else {
+          wizLiveCountdown.textContent = `D-${days} to go`;
+          const formatted = new Date(val + 'T00:00:00').toLocaleDateString('en-IN', {
+            weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+          });
+          wizLiveDateLabel.textContent = `Target celebration date: ${formatted}`;
+        }
+      }
+
+      wizDate.addEventListener('input', updateLiveCountdownInWizard);
+      wizDate.addEventListener('change', updateLiveCountdownInWizard);
+
+      wizVenueTypeBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          wizardState.venueType = btn.dataset.value;
+          wizVenueTypeBtns.forEach((b) => b.classList.toggle('selected', b === btn));
+        });
+      });
+
+      // Step 3 Interactions (Slider <-> Number Sync + Live Per Guest)
+      function updateLiveBudgetStats() {
+        const b = Math.max(50000, Math.min(10000000, Number(wizardState.budget) || 50000));
+        const g = Math.max(10, Math.min(2000, Number(wizardState.guestCount) || 10));
+        wizBudgetFormatted.textContent = formatINR(b);
+        wizGuestsFormatted.textContent = `${g.toLocaleString('en-IN')} guests`;
+        const perGuest = Math.round(b / g);
+        wizPerGuest.textContent = `Budget per guest: ${formatINR(perGuest)}`;
+      }
+
+      wizBudgetRange.addEventListener('input', () => {
+        wizardState.budget = Number(wizBudgetRange.value);
+        wizBudgetNum.value = wizardState.budget;
+        updateLiveBudgetStats();
+      });
+
+      wizBudgetNum.addEventListener('input', () => {
+        const raw = Number(wizBudgetNum.value);
+        if (!isNaN(raw)) {
+          wizardState.budget = raw;
+          wizBudgetRange.value = Math.max(50000, Math.min(10000000, raw));
+          updateLiveBudgetStats();
+        }
+      });
+
+      wizBudgetNum.addEventListener('blur', () => {
+        const clamped = Math.max(50000, Math.min(10000000, Number(wizBudgetNum.value) || 50000));
+        wizardState.budget = clamped;
+        wizBudgetNum.value = clamped;
+        wizBudgetRange.value = clamped;
+        updateLiveBudgetStats();
+      });
+
+      wizGuestsRange.addEventListener('input', () => {
+        wizardState.guestCount = Number(wizGuestsRange.value);
+        wizGuestsNum.value = wizardState.guestCount;
+        updateLiveBudgetStats();
+      });
+
+      wizGuestsNum.addEventListener('input', () => {
+        const raw = Number(wizGuestsNum.value);
+        if (!isNaN(raw)) {
+          wizardState.guestCount = raw;
+          wizGuestsRange.value = Math.max(10, Math.min(2000, raw));
+          updateLiveBudgetStats();
+        }
+      });
+
+      wizGuestsNum.addEventListener('blur', () => {
+        const clamped = Math.max(10, Math.min(2000, Math.round(Number(wizGuestsNum.value) || 10)));
+        wizardState.guestCount = clamped;
+        wizGuestsNum.value = clamped;
+        wizGuestsRange.value = clamped;
+        updateLiveBudgetStats();
+      });
+
+      // Step 4 Interactions (Style, Food, Top 3 Priorities)
+      wizStyleChips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const s = chip.dataset.style;
+          if (wizardState.style.includes(s)) {
+            wizardState.style = wizardState.style.filter((item) => item !== s);
+          } else {
+            wizardState.style.push(s);
+          }
+          chip.classList.toggle('selected', wizardState.style.includes(s));
+        });
+      });
+
+      wizFoodChips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          wizardState.food = chip.dataset.food;
+          wizFoodChips.forEach((c) => c.classList.toggle('selected', c === chip));
+        });
+      });
+
+      function renderPriorityChips() {
+        wizPriorityChips.forEach((chip) => {
+          const name = chip.dataset.priority;
+          const rankIdx = wizardState.priorities.indexOf(name);
+          if (rankIdx !== -1) {
+            chip.classList.add('selected');
+            chip.innerHTML = `<span class="priority-rank-badge">${rankIdx + 1}</span><span>${name}</span>`;
+          } else {
+            chip.classList.remove('selected');
+            chip.textContent = name;
+          }
+        });
+        wizPriorityCount.textContent = `(${wizardState.priorities.length} / 3 selected · +3% budget boost each)`;
+      }
+
+      wizPriorityChips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const name = chip.dataset.priority;
+          const idx = wizardState.priorities.indexOf(name);
+          if (idx !== -1) {
+            wizardState.priorities.splice(idx, 1);
+          } else if (wizardState.priorities.length < 3) {
+            wizardState.priorities.push(name);
+          } else {
+            // Replace oldest selection cleanly if already at 3, or show hint
+            showWizardError(4, 'You can pick up to 3 top priorities. Click a selected priority to change it.');
+            return;
+          }
+          clearWizardErrors();
+          renderPriorityChips();
+        });
+      });
+
+      // Step Validation & Navigation
+      function validateAndCaptureStep(step) {
+        clearWizardErrors();
+
+        if (step === 1) {
+          const name = wizEventName.value.trim();
+          const hosts = wizHosts.value.trim();
+          const days = Number(wizDaysCount.value);
+
+          if (!name) {
+            showWizardError(1, 'Please enter a name for your event.');
+            wizEventName.focus();
+            return false;
+          }
+          if (!hosts) {
+            showWizardError(1, 'Please enter the host names.');
+            wizHosts.focus();
+            return false;
+          }
+          if (!days || days < 1) {
+            showWizardError(1, 'Number of days or functions must be at least 1.');
+            wizDaysCount.focus();
+            return false;
+          }
+          if (wizardState.eventType === 'Wedding' && wizardState.functions.length === 0) {
+            showWizardError(1, 'Please select at least one wedding function.');
+            return false;
+          }
+
+          wizardState.eventName = name;
+          wizardState.hosts = hosts;
+          wizardState.daysCount = days;
+          if (wizardState.eventType !== 'Wedding') {
+            wizardState.functions = days > 1
+              ? Array.from({ length: days }, (_, i) => `${wizardState.eventType} Day ${i + 1}`)
+              : [wizardState.eventType];
+          }
+          return true;
+        }
+
+        if (step === 2) {
+          const dateVal = wizDate.value;
+          const days = daysUntilDate(dateVal);
+          if (!dateVal || days === null || days <= 0) {
+            showWizardError(2, 'Please choose an event date in the future.');
+            wizDate.focus();
+            return false;
+          }
+          wizardState.date = dateVal;
+          wizardState.city = wizCity.value;
+          return true;
+        }
+
+        if (step === 3) {
+          const budget = Number(wizBudgetNum.value);
+          const guests = Number(wizGuestsNum.value);
+          if (isNaN(budget) || budget < 50000 || budget > 10000000) {
+            showWizardError(3, 'Please enter a total budget between Rs 50,000 and Rs 1,00,00,000.');
+            wizBudgetNum.focus();
+            return false;
+          }
+          if (isNaN(guests) || guests < 10 || guests > 2000) {
+            showWizardError(3, 'Please enter a guest count between 10 and 2,000.');
+            wizGuestsNum.focus();
+            return false;
+          }
+          wizardState.budget = Math.round(budget);
+          wizardState.guestCount = Math.round(guests);
+          return true;
+        }
+
+        if (step === 4) {
+          if (wizardState.style.length === 0) {
+            showWizardError(4, 'Please select at least one celebration style.');
+            return false;
+          }
+          if (wizardState.priorities.length !== 3) {
+            showWizardError(4, 'Please pick your top 3 priorities so Shubh can balance your budget.');
+            return false;
+          }
+          wizardState.notes = wizNotes.value.trim();
+          return true;
+        }
+
+        return true;
+      }
+
+      // Summary + SVG Donut Chart Rendering
+      function renderWizardSummaryAndDonut() {
+        const days = daysUntilDate(wizardState.date);
+        const perGuest = Math.round(wizardState.budget / wizardState.guestCount);
+        const { percentages, amounts } = computeBudgetSplit(
+          wizardState.eventType,
+          wizardState.budget,
+          wizardState.priorities
+        );
+        wizardState.computedBudgetSplit = amounts;
+
+        const summaryRows = [
+          ['Event', `${wizardState.eventName} (${wizardState.eventType})`],
+          ['Hosts', wizardState.hosts],
+          ['Functions', wizardState.functions.join(', ')],
+          ['Date & Countdown', `${wizardState.date} (D-${days} to go)`],
+          ['Location', `${wizardState.city} · ${wizardState.venueType}`],
+          ['Budget & Guests', `${formatINR(wizardState.budget)} · ${wizardState.guestCount} guests (${formatINR(perGuest)}/guest)`],
+          ['Style & Food', `${wizardState.style.join(', ')} · ${wizardState.food}`],
+          ['Top 3 Priorities', wizardState.priorities.map((p, i) => `${i + 1}. ${p}`).join('  ')],
+          ['Notes', wizardState.notes || 'None provided']
+        ];
+
+        wizSummaryList.innerHTML = summaryRows
+          .map(([k, v]) => `
+            <div class="summary-row">
+              <span class="summary-key">${escapeHTML(k)}</span>
+              <span class="summary-val">${escapeHTML(v)}</span>
+            </div>
+          `)
+          .join('');
+
+        // Draw SVG Donut Chart (No Library)
+        donutTotalLabel.textContent = formatINR(wizardState.budget);
+        const radius = 74;
+        const circumference = 2 * Math.PI * radius;
+        let accumulatedPct = 0;
+
+        const svgCircles = BUDGET_CATEGORIES.map((cat, idx) => {
+          const pct = percentages[cat];
+          const dashLen = (pct / 100) * circumference;
+          const dashOffset = -(accumulatedPct / 100) * circumference;
+          accumulatedPct += pct;
+          const color = DONUT_COLORS[idx % DONUT_COLORS.length];
+
+          return `<circle
+            cx="100" cy="100" r="${radius}"
+            fill="transparent"
+            stroke="${color}"
+            stroke-width="28"
+            stroke-dasharray="${dashLen} ${circumference}"
+            stroke-dashoffset="${dashOffset}"
+            transform="rotate(-90 100 100)"
+          ><title>${escapeHTML(cat)}: ${pct}% (${formatINR(amounts[cat])})</title></circle>`;
+        }).join('');
+
+        budgetDonutSvg.innerHTML = svgCircles;
+
+        budgetDonutLegend.innerHTML = BUDGET_CATEGORIES.map((cat, idx) => {
+          const color = DONUT_COLORS[idx % DONUT_COLORS.length];
+          const pct = Number(percentages[cat].toFixed(1));
+          const amt = formatINR(amounts[cat]);
+          return `
+            <div class="legend-item">
+              <span class="legend-left">
+                <span class="legend-swatch" style="background-color: ${color};"></span>
+                <span>${escapeHTML(cat)} (${pct}%)</span>
+              </span>
+              <span class="legend-right">${amt}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function escapeHTML(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      wizNextBtn.addEventListener('click', () => {
+        if (!validateAndCaptureStep(wizardState.step)) return;
+        wizardState.step += 1;
+        renderWizardStep();
+      });
+
+      wizPrevBtn.addEventListener('click', () => {
+        clearWizardErrors();
+        if (wizardState.step > 1) {
+          wizardState.step -= 1;
+          renderWizardStep();
+        } else if (wizardState.isEditing) {
+          const user = getStored(STORAGE_USER_KEY);
+          const evt = getStored(STORAGE_EVENT_KEY);
+          if (evt) {
+            renderAppShell(user, evt);
+            showOnlyView('app');
+          } else {
+            showOnlyView('landing');
+          }
+        } else {
+          showOnlyView('login');
+        }
+      });
+
+      wizardCancelEditBtn.addEventListener('click', () => {
+        const user = getStored(STORAGE_USER_KEY);
+        const evt = getStored(STORAGE_EVENT_KEY);
+        if (evt) {
+          renderAppShell(user, evt);
+          showOnlyView('app');
+        }
+      });
+
+      wizGenerateBtn.addEventListener('click', () => {
+        const existing = getStored(STORAGE_EVENT_KEY);
+        const eventProfile = {
+          eventType: wizardState.eventType,
+          eventName: wizardState.eventName,
+          hosts: wizardState.hosts,
+          functions: wizardState.functions,
+          date: wizardState.date,
+          city: wizardState.city,
+          venueType: wizardState.venueType,
+          budget: wizardState.budget,
+          guestCount: wizardState.guestCount,
+          style: wizardState.style,
+          food: wizardState.food,
+          priorities: wizardState.priorities,
+          notes: wizardState.notes,
+          budgetSplit: wizardState.computedBudgetSplit || computeBudgetSplit(
+            wizardState.eventType,
+            wizardState.budget,
+            wizardState.priorities
+          ).amounts,
+          createdAt: existing && existing.createdAt ? existing.createdAt : new Date().toISOString()
+        };
+
+        saveStored(STORAGE_EVENT_KEY, eventProfile);
+        const user = getStored(STORAGE_USER_KEY) || { name: 'Guest Planner', email: 'guest@utsav.ai' };
+        renderAppShell(user, eventProfile);
+        showOnlyView('app');
+      });
+
+      // ----------------------------------------------------------------------
+      // 3. APP SHELL RENDERING & INTERACTIONS
+      // ----------------------------------------------------------------------
+      function renderAppShell(user, evt) {
+        if (user) {
+          sidebarUserName.textContent = user.name || 'Planner';
+          sidebarUserEmail.textContent = user.email || '';
+        }
+
+        if (!evt) return;
+
+        appEventName.textContent = evt.eventName;
+        appEventTypeLabel.textContent = `${evt.eventType} · ${evt.city}`;
+
+        const days = daysUntilDate(evt.date);
+        const countdownLabel = days !== null
+          ? (days > 0 ? `D-${days} to go` : (days === 0 ? 'Event Today!' : `D+${Math.abs(days)} ago`))
+          : 'D-— to go';
+
+        appCountdownText.textContent = countdownLabel;
+        dashCountdownVal.textContent = countdownLabel;
+        dashCountdownSub.textContent = `${evt.date} · Functions: ${(evt.functions || []).join(', ')}`;
+        dashCityVenue.textContent = `${evt.city} · ${evt.venueType}`;
+        dashPrioritiesSummary.textContent = `Top 3: ${(evt.priorities || []).join(', ')}`;
+
+        dashBudgetVal.textContent = formatINR(evt.budget);
+        const perGuest = evt.guestCount ? Math.round(evt.budget / evt.guestCount) : 0;
+        dashBudgetSub.textContent = `${formatINR(perGuest)} per guest across 8 categories.`;
+
+        dashGuestsVal.textContent = `${Number(evt.guestCount).toLocaleString('en-IN')} Guests`;
+        dashGuestsSub.textContent = `${evt.food} menu · Style: ${(evt.style || []).join(', ')}`;
+
+        // Populate Budget Split preview in Budget tab
+        const splitEntries = Object.entries(evt.budgetSplit || {});
+        appBudgetSplitList.innerHTML = splitEntries
+          .map(([cat, amt]) => `
+            <div class="budget-split-mini-row">
+              <span>${escapeHTML(cat)}</span>
+              <strong class="tabular-nums">${formatINR(amt)}</strong>
+            </div>
+          `)
+          .join('');
+      }
+
+      // Edit Event Button in Dashboard
+      editEventBtn.addEventListener('click', () => {
+        const evt = getStored(STORAGE_EVENT_KEY);
+        openWizard(evt);
+      });
+
+      // Sign Out Button
+      signoutBtn.addEventListener('click', () => {
+        localStorage.removeItem(STORAGE_USER_KEY);
+        googleForm.classList.add('hidden');
+        showOnlyView('login');
+      });
+
+      // Tab Switching
+      sidebarTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const targetId = `tab-${tab.dataset.tab}`;
+
+          sidebarTabs.forEach((t) => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+
+          tabPanels.forEach((panel) => {
+            panel.classList.toggle('active', panel.id === targetId);
+          });
+
+          reminderPopover.classList.add('hidden');
+          bellBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Reminders Bell Popover
+      bellBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = reminderPopover.classList.toggle('hidden');
+        bellBtn.setAttribute('aria-expanded', String(!isHidden));
+      });
+
+      markReadBtn.addEventListener('click', () => {
+        bellCount.classList.add('hidden');
+        markReadBtn.textContent = 'All caught up';
+        markReadBtn.disabled = true;
+      });
+
+      document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+          closeMobileMenu();
+        }
+        if (!reminderPopover.contains(e.target) && !bellBtn.contains(e.target)) {
+          reminderPopover.classList.add('hidden');
+          bellBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+          reminderPopover.classList.add('hidden');
+          bellBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Scroll Fade-In Animations
+      const revealElements = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+        );
+        revealElements.forEach((el) => observer.observe(el));
+      } else {
+        revealElements.forEach((el) => el.classList.add('is-visible'));
+      }
+
+      // ----------------------------------------------------------------------
+      // Initial Boot Routing (Persisted localStorage Restore)
+      // ----------------------------------------------------------------------
+      const savedUser = getStored(STORAGE_USER_KEY);
+      const savedEvent = getStored(STORAGE_EVENT_KEY);
+
+      if (savedUser && savedEvent) {
+        renderAppShell(savedUser, savedEvent);
+        showOnlyView('app');
+      } else if (savedUser && !savedEvent) {
+        openWizard(null);
+      } else {
+        showOnlyView('landing');
+      }
+    });
+  </script>
+</body>
+</html>

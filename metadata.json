@@ -1,0 +1,6 @@
+{
+  "name": "Utsav AI",
+  "description": "AI-powered event and wedding planner featuring Shubh, your AI planning concierge.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,2692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utsav AI — Plan Your Perfect Event with AI</title>
+
+  <!-- Google Fonts: Playfair Display (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM VARIABLES
+       ========================================================================== */
+    :root {
+      /* Brand Palette */
+      --marigold: #E8A317;
+      --marigold-dark: #CC8B0D;
+      --marigold-soft: rgba(232, 163, 23, 0.14);
+      --maroon: #7A1F3D;
+      --maroon-dark: #5E152D;
+      --blush: #F8E1E7;
+      --blush-soft: rgba(248, 225, 231, 0.55);
+      --ivory: #FFFBF5;
+      --white: #FFFFFF;
+      --text: #2B2024;
+      --text-muted: #6C5B61;
+      --border-subtle: rgba(122, 31, 61, 0.12);
+
+      /* Typography */
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Elevation & Shape */
+      --radius-card: 16px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 10px 30px rgba(43, 32, 36, 0.06);
+      --shadow-hover: 0 18px 40px rgba(122, 31, 61, 0.11);
+      --transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+
+      /* Layout */
+      --container-max: 1180px;
+      --nav-height: 76px;
+      --sidebar-width: 260px;
+    }
+
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--ivory);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-serif {
+      font-family: var(--font-heading);
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Reusable Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--marigold) 0%, #F2B538 100%);
+      color: var(--text);
+      box-shadow: 0 8px 22px rgba(232, 163, 23, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--marigold-dark) 0%, var(--marigold) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(232, 163, 23, 0.36);
+    }
+
+    .btn-maroon {
+      background-color: var(--maroon);
+      color: var(--white);
+      box-shadow: 0 8px 22px rgba(122, 31, 61, 0.22);
+    }
+
+    .btn-maroon:hover {
+      background-color: var(--maroon-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(122, 31, 61, 0.3);
+    }
+
+    .btn-outline {
+      background-color: var(--white);
+      color: var(--maroon);
+      border: 1.5px solid rgba(122, 31, 61, 0.24);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--maroon);
+      background-color: var(--blush-soft);
+      transform: translateY(-2px);
+    }
+
+    /* Section Header Helpers */
+    .section {
+      padding: 88px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 660px;
+      margin: 0 auto 54px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background-color: var(--blush);
+      color: var(--maroon);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.04rem;
+    }
+
+    /* Scroll Fade-in Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       VIEW 1: LANDING PAGE
+       ========================================================================== */
+
+    /* Sticky Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      background: rgba(255, 251, 245, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: var(--transition);
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--maroon);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--maroon) 0%, #9E2B51 100%);
+      color: var(--marigold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(122, 31, 61, 0.24);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--maroon);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-cta {
+      padding: 10px 22px;
+      font-size: 0.9rem;
+    }
+
+    .hamburger-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      color: var(--maroon);
+      background-color: var(--blush-soft);
+    }
+
+    /* Mobile Drawer Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background: var(--ivory);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 20px 24px 28px;
+      box-shadow: 0 18px 36px rgba(43, 32, 36, 0.1);
+      z-index: 99;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu .nav-link {
+      padding: 8px 0;
+      font-size: 1.05rem;
+      border-bottom: 1px dashed rgba(122, 31, 61, 0.1);
+    }
+
+    /* Full-Viewport Hero */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - var(--nav-height));
+      display: flex;
+      align-items: center;
+      padding: 56px 0 72px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(248, 225, 231, 0.72) 0%, transparent 45%),
+        radial-gradient(circle at 88% 22%, rgba(232, 163, 23, 0.15) 0%, transparent 42%),
+        radial-gradient(circle at 75% 88%, rgba(248, 225, 231, 0.5) 0%, transparent 40%),
+        var(--ivory);
+    }
+
+    /* Subtle Floral & Confetti Motif Layer */
+    .hero-motif {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .mandala-top-right {
+      position: absolute;
+      top: -110px;
+      right: -110px;
+      width: 460px;
+      height: 460px;
+      opacity: 0.12;
+      color: var(--maroon);
+      animation: slowSpin 75s linear infinite;
+    }
+
+    .mandala-bottom-left {
+      position: absolute;
+      bottom: -140px;
+      left: -120px;
+      width: 380px;
+      height: 380px;
+      opacity: 0.14;
+      color: var(--marigold);
+      animation: slowSpin 90s linear infinite reverse;
+    }
+
+    @keyframes slowSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .confetti-dot {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.45;
+    }
+
+    .confetti-petal {
+      position: absolute;
+      width: 14px;
+      height: 8px;
+      border-radius: 10px 2px 10px 2px;
+      opacity: 0.35;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 15px;
+      border-radius: var(--radius-pill);
+      background-color: var(--white);
+      border: 1px solid rgba(232, 163, 23, 0.35);
+      box-shadow: 0 4px 14px rgba(43, 32, 36, 0.04);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--maroon);
+      margin-bottom: 22px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--marigold);
+      box-shadow: 0 0 0 4px rgba(232, 163, 23, 0.22);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .hero-title span {
+      color: var(--maroon);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 4px;
+      width: 100%;
+      height: 10px;
+      background-color: rgba(232, 163, 23, 0.28);
+      z-index: -1;
+      border-radius: 4px;
+    }
+
+    .hero-subtext {
+      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 32px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .hero-trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-trust-item svg {
+      color: var(--marigold-dark);
+    }
+
+    /* Hero Right Visual Preview Card */
+    .hero-card {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: 0 24px 60px rgba(122, 31, 61, 0.12);
+      border: 1px solid rgba(122, 31, 61, 0.08);
+      position: relative;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 18px;
+    }
+
+    .shubh-avatar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .shubh-orb {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--maroon), #A82E57);
+      color: var(--marigold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .shubh-meta h4 {
+      font-size: 1rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+    }
+
+    .shubh-meta span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .pill-live {
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--blush);
+      color: var(--maroon);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .hero-prompt-bubble {
+      background: var(--ivory);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .hero-prompt-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--maroon);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .hero-plan-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .metric-mini {
+      background: var(--blush-soft);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .metric-mini strong {
+      display: block;
+      font-size: 1.05rem;
+      color: var(--maroon);
+      font-family: var(--font-heading);
+    }
+
+    .metric-mini span {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .hero-task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-task-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 13px;
+      border-radius: 12px;
+      background: var(--ivory);
+      font-size: 0.85rem;
+    }
+
+    .hero-task-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .task-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: var(--marigold-soft);
+      color: var(--marigold-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .task-tag {
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--maroon);
+      background: var(--blush);
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* Feature Cards (6 Cards) */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 30px 26px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(122, 31, 61, 0.06);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(232, 163, 23, 0.45);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--blush);
+      color: var(--maroon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover .feature-icon {
+      background: var(--marigold);
+      color: var(--text);
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+    }
+
+    /* How It Works 4-Step Strip */
+    .how-strip {
+      background: linear-gradient(180deg, rgba(248, 225, 231, 0.36) 0%, rgba(255, 251, 245, 0.8) 100%);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      position: relative;
+    }
+
+    .step-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 26px 22px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      transition: var(--transition);
+      border: 1px solid rgba(122, 31, 61, 0.06);
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--maroon);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 6px 14px rgba(122, 31, 61, 0.22);
+    }
+
+    .step-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Event-Type Chips Section */
+    .event-types-box {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 46px 36px;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 28px;
+      margin-bottom: 24px;
+    }
+
+    .event-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 22px;
+      border-radius: var(--radius-pill);
+      background: var(--ivory);
+      border: 1.5px solid rgba(122, 31, 61, 0.16);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.96rem;
+      transition: var(--transition);
+    }
+
+    .event-chip:hover,
+    .event-chip.active {
+      background: var(--maroon);
+      color: var(--white);
+      border-color: var(--maroon);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(122, 31, 61, 0.2);
+    }
+
+    .chip-caption {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* 3-Tier Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 34px 28px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(122, 31, 61, 0.08);
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--marigold);
+      box-shadow: 0 20px 44px rgba(232, 163, 23, 0.16);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -13px;
+      right: 24px;
+      background: var(--marigold);
+      color: var(--text);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pricing-tier {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .pricing-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .pricing-price {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--maroon);
+      margin-bottom: 22px;
+    }
+
+    .pricing-price span {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .pricing-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 30px;
+      flex: 1;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .pricing-features svg {
+      flex-shrink: 0;
+      margin-top: 3px;
+      color: var(--marigold-dark);
+    }
+
+    /* Testimonials (3 Cards) */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 30px 26px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(122, 31, 61, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .stars {
+      color: var(--marigold);
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .testimonial-quote {
+      font-size: 0.96rem;
+      color: var(--text);
+      margin-bottom: 24px;
+      line-height: 1.65;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .author-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--blush);
+      color: var(--maroon);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .author-info strong {
+      display: block;
+      font-size: 0.92rem;
+    }
+
+    .author-info span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* CTA Banner */
+    .cta-banner-section {
+      padding: 20px 0 88px;
+    }
+
+    .cta-banner {
+      background: linear-gradient(135deg, var(--maroon) 0%, #5B142C 100%);
+      border-radius: 24px;
+      padding: 58px 42px;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 50px rgba(122, 31, 61, 0.25);
+    }
+
+    .cta-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(232, 163, 23, 0.22), transparent 45%),
+                  radial-gradient(circle at 80% 80%, rgba(248, 225, 231, 0.16), transparent 45%);
+      pointer-events: none;
+    }
+
+    .cta-banner-content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-banner h2 {
+      color: var(--white);
+      font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+      margin-bottom: 14px;
+    }
+
+    .cta-banner p {
+      color: rgba(255, 251, 245, 0.86);
+      font-size: 1.05rem;
+      margin-bottom: 28px;
+    }
+
+    /* 4-Column Footer */
+    .footer {
+      background: var(--white);
+      border-top: 1px solid var(--border-subtle);
+      padding: 64px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-top: 14px;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--maroon);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--maroon);
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       VIEW 2: APP SHELL
+       ========================================================================== */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+      background-color: var(--ivory);
+    }
+
+    /* Left Sidebar (Desktop) */
+    .app-sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--white);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 16px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 0 8px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sidebar-tab {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: var(--transition);
+      text-align: left;
+      width: 100%;
+    }
+
+    .sidebar-tab:hover {
+      background-color: var(--ivory);
+      color: var(--maroon);
+    }
+
+    .sidebar-tab.active {
+      background-color: var(--blush);
+      color: var(--maroon);
+      font-weight: 700;
+      box-shadow: inset 3px 0 0 var(--marigold);
+    }
+
+    .sidebar-footer {
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .back-home-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .back-home-btn:hover {
+      background-color: var(--blush-soft);
+      color: var(--maroon);
+    }
+
+    /* Main App Content Area */
+    .app-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* Top Bar */
+    .app-topbar {
+      height: 72px;
+      background-color: rgba(255, 251, 245, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .topbar-event {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .topbar-event-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-event-badge {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--blush);
+      color: var(--maroon);
+      font-size: 0.74rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+    }
+
+    .countdown-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 15px;
+      border-radius: var(--radius-pill);
+      background: var(--marigold-soft);
+      border: 1px solid rgba(232, 163, 23, 0.4);
+      color: var(--maroon);
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .bell-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--border-subtle);
+      color: var(--maroon);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .bell-btn:hover {
+      background: var(--blush);
+    }
+
+    .bell-dot {
+      position: absolute;
+      top: 8px;
+      right: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--marigold);
+      border: 1.5px solid var(--white);
+    }
+
+    .reminder-popover {
+      position: absolute;
+      top: 52px;
+      right: 0;
+      width: 280px;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow-hover);
+      border: 1px solid var(--border-subtle);
+      z-index: 60;
+    }
+
+    .reminder-popover h4 {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--maroon);
+      margin-bottom: 10px;
+    }
+
+    .reminder-item {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding: 8px 0;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    /* Tab Content Panels */
+    .app-content {
+      padding: 32px;
+      flex: 1;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeTab 0.24s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeTab {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tab-header {
+      margin-bottom: 26px;
+    }
+
+    .tab-header h1 {
+      font-size: 2rem;
+      margin-bottom: 6px;
+    }
+
+    .tab-header p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+    }
+
+    /* Placeholder Grid & Dashed-Border Boxes */
+    .placeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    .placeholder-box {
+      background: var(--white);
+      border: 2px dashed rgba(122, 31, 61, 0.25);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      grid-column: span 4;
+    }
+
+    .placeholder-box:hover {
+      border-color: var(--marigold);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .placeholder-box.span-6 {
+      grid-column: span 6;
+    }
+
+    .placeholder-box.span-8 {
+      grid-column: span 8;
+    }
+
+    .placeholder-box.span-12 {
+      grid-column: span 12;
+      min-height: 220px;
+    }
+
+    .placeholder-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      padding: 4px 11px;
+      border-radius: var(--radius-pill);
+      background: var(--blush-soft);
+      color: var(--maroon);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+
+    .placeholder-box h3 {
+      font-size: 1.32rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .placeholder-box p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .placeholder-meta {
+      margin-top: 20px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(122, 31, 61, 0.14);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .features-grid,
+      .pricing-grid,
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .placeholder-box,
+      .placeholder-box.span-6,
+      .placeholder-box.span-8 {
+        grid-column: span 6;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links,
+      .nav-actions .nav-cta {
+        display: none;
+      }
+
+      .hamburger-btn {
+        display: inline-flex;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+
+      .features-grid,
+      .steps-grid,
+      .pricing-grid,
+      .testimonials-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-plan-metrics {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .cta-banner {
+        padding: 42px 24px;
+      }
+
+      /* App Shell: Collapse Left Sidebar to Fixed Bottom Tab Bar */
+      .app-shell {
+        flex-direction: column;
+        padding-bottom: 72px;
+      }
+
+      .app-sidebar {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 68px;
+        flex-direction: row;
+        padding: 6px 8px;
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
+        box-shadow: 0 -8px 24px rgba(43, 32, 36, 0.08);
+        z-index: 80;
+      }
+
+      .sidebar-header,
+      .sidebar-footer {
+        display: none;
+      }
+
+      .sidebar-nav {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        gap: 2px;
+      }
+
+      .sidebar-tab {
+        flex-direction: column;
+        justify-content: center;
+        gap: 3px;
+        padding: 6px 4px;
+        font-size: 0.68rem;
+        border-radius: 10px;
+      }
+
+      .sidebar-tab.active {
+        box-shadow: none;
+        background: var(--blush);
+      }
+
+      .app-topbar {
+        padding: 0 16px;
+        height: 64px;
+      }
+
+      .topbar-event-badge {
+        display: none;
+      }
+
+      .topbar-event-title {
+        font-size: 1.08rem;
+      }
+
+      .countdown-pill {
+        padding: 5px 10px;
+        font-size: 0.78rem;
+      }
+
+      .app-content {
+        padding: 20px 16px;
+      }
+
+      .placeholder-box,
+      .placeholder-box.span-6,
+      .placeholder-box.span-8,
+      .placeholder-box.span-12 {
+        grid-column: span 12;
+        min-height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       VIEW 1: LANDING PAGE (Shown by Default)
+       ======================================================================== -->
+  <div id="landing-view">
+
+    <!-- Sticky Navbar -->
+    <header class="navbar">
+      <div class="container navbar-inner">
+        <a href="#hero" class="brand-logo" aria-label="Utsav AI Home">
+          <span class="brand-mark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L14.8 8.5L21.5 9.2L16.4 13.7L17.9 20.4L12 16.8L6.1 20.4L7.6 13.7L2.5 9.2L9.2 8.5L12 2Z" />
+            </svg>
+          </span>
+          <span>Utsav AI</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary Navigation">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#occasions" class="nav-link">Occasions</a>
+          <a href="#pricing" class="nav-link">Pricing</a>
+          <a href="#testimonials" class="nav-link">Stories</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button type="button" class="btn btn-primary nav-cta js-start-planning">Start Planning</button>
+          <button type="button" class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu" aria-expanded="false">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Hamburger Menu Drawer -->
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="#features" class="nav-link js-mobile-link">Features</a>
+        <a href="#how-it-works" class="nav-link js-mobile-link">How It Works</a>
+        <a href="#occasions" class="nav-link js-mobile-link">Occasions</a>
+        <a href="#pricing" class="nav-link js-mobile-link">Pricing</a>
+        <a href="#testimonials" class="nav-link js-mobile-link">Stories</a>
+        <button type="button" class="btn btn-primary js-start-planning" style="width: 100%; margin-top: 6px;">Start Planning</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Full-Viewport Hero -->
+      <section class="hero" id="hero">
+        <!-- Subtle Floral Mandala & Confetti Motif -->
+        <div class="hero-motif" aria-hidden="true">
+          <svg class="mandala-top-right" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="100" cy="100" r="88" stroke-dasharray="4 4" />
+            <circle cx="100" cy="100" r="66" />
+            <circle cx="100" cy="100" r="42" stroke-dasharray="3 3" />
+            <path d="M100 12 C112 45, 112 45, 100 78 C88 45, 88 45, 100 12 Z" />
+            <path d="M100 188 C112 155, 112 155, 100 122 C88 155, 88 155, 100 188 Z" />
+            <path d="M12 100 C45 112, 45 112, 78 100 C45 88, 45 88, 12 100 Z" />
+            <path d="M188 100 C155 112, 155 112, 122 100 C155 88, 155 88, 188 100 Z" />
+            <path d="M38 38 C68 55, 68 55, 84 84 C55 68, 55 68, 38 38 Z" />
+            <path d="M162 162 C132 145, 132 145, 116 116 C145 132, 145 132, 162 162 Z" />
+            <path d="M162 38 C145 68, 145 68, 116 84 C132 55, 132 55, 162 38 Z" />
+            <path d="M38 162 C55 132, 55 132, 84 116 C68 145, 68 145, 38 162 Z" />
+          </svg>
+
+          <svg class="mandala-bottom-left" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.3">
+            <circle cx="100" cy="100" r="80" stroke-dasharray="5 5" />
+            <circle cx="100" cy="100" r="52" />
+            <circle cx="100" cy="100" r="26" />
+          </svg>
+
+          <!-- Delicate Confetti & Marigold Petals -->
+          <span class="confetti-dot" style="top: 18%; left: 46%; width: 8px; height: 8px; background: var(--marigold);"></span>
+          <span class="confetti-dot" style="top: 26%; left: 53%; width: 6px; height: 6px; background: var(--maroon);"></span>
+          <span class="confetti-petal" style="top: 14%; left: 62%; background: var(--marigold); transform: rotate(28deg);"></span>
+          <span class="confetti-petal" style="top: 72%; left: 44%; background: var(--maroon); transform: rotate(-34deg);"></span>
+          <span class="confetti-dot" style="top: 80%; left: 58%; width: 9px; height: 9px; background: var(--marigold);"></span>
+        </div>
+
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="hero-badge">
+              <span class="hero-badge-dot"></span>
+              Meet Shubh — Your AI Celebration Concierge
+            </div>
+
+            <h1 class="hero-title">
+              Plan Your Perfect <span>Event</span> with AI
+            </h1>
+
+            <p class="hero-subtext">
+              Enter your budget, guests and date. Shubh, your AI planner, handles the rest.
+            </p>
+
+            <div class="hero-ctas">
+              <button type="button" class="btn btn-primary js-start-planning">
+                Start Planning
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+              <a href="#how-it-works" class="btn btn-outline">See How It Works</a>
+            </div>
+
+            <div class="hero-trust">
+              <span class="hero-trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12" /></svg>
+                No spreadsheets needed
+              </span>
+              <span class="hero-trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12" /></svg>
+                Instant budget split
+              </span>
+              <span class="hero-trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12" /></svg>
+                Built for Indian &amp; modern celebrations
+              </span>
+            </div>
+          </div>
+
+          <!-- Hero Interactive Showcase Card -->
+          <div class="hero-card" aria-label="Shubh AI Planner Preview">
+            <div class="hero-card-header">
+              <div class="shubh-avatar">
+                <div class="shubh-orb">S</div>
+                <div class="shubh-meta">
+                  <h4>Shubh AI Planner</h4>
+                  <span>Active blueprint • Jaipur Destination</span>
+                </div>
+              </div>
+              <span class="pill-live">94% Plan Health</span>
+            </div>
+
+            <div class="hero-prompt-bubble">
+              <span class="hero-prompt-label">Your Brief</span>
+              “3-day Wedding for 250 guests in November, ₹28L budget, garden Sangeet + morning pheras.”
+            </div>
+
+            <div class="hero-plan-metrics">
+              <div class="metric-mini">
+                <strong>₹27.4L</strong>
+                <span>Projected</span>
+              </div>
+              <div class="metric-mini">
+                <strong>218 / 250</strong>
+                <span>RSVPs Confirmed</span>
+              </div>
+              <div class="metric-mini">
+                <strong>42 Tasks</strong>
+                <span>Auto-Scheduled</span>
+              </div>
+            </div>
+
+            <div class="hero-task-list">
+              <div class="hero-task-item">
+                <span class="hero-task-left">
+                  <span class="task-check">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12" /></svg>
+                  </span>
+                  Marigold Mandap &amp; Floral Decor Locked
+                </span>
+                <span class="task-tag">Budget Safe</span>
+              </div>
+              <div class="hero-task-item">
+                <span class="hero-task-left">
+                  <span class="task-check">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12" /></svg>
+                  </span>
+                  WhatsApp RSVP Reminder Sent to 32 Guests
+                </span>
+                <span class="task-tag">Auto</span>
+              </div>
+              <div class="hero-task-item">
+                <span class="hero-task-left">
+                  <span class="task-check">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12" /></svg>
+                  </span>
+                  +30 Guests Added → Catering Rebalanced
+                </span>
+                <span class="task-tag">Replanned</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 Feature Cards -->
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="eyebrow">Intelligent Toolkit</span>
+            <h2 class="section-title">Everything you need for a stress-free celebration</h2>
+            <p class="section-subtitle">
+              From the first moodboard to the final farewell, Utsav AI keeps every timeline, rupee, and RSVP in harmony.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <!-- 1. Smart Timeline -->
+            <article class="feature-card reveal">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </div>
+              <h3>Smart Timeline</h3>
+              <p>Shubh generates a month-by-month, ceremony-aware checklist tailored to your exact event date and traditions.</p>
+            </article>
+
+            <!-- 2. Vendor Matchmaker -->
+            <article class="feature-card reveal">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3>Vendor Matchmaker</h3>
+              <p>Discover vetted decorators, caterers, photographers, and venues matched to your style, city, and target spend.</p>
+            </article>
+
+            <!-- 3. RSVP Tracker -->
+            <article class="feature-card reveal">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <h3>RSVP Tracker</h3>
+              <p>Manage multi-function guest lists, dietary notes, room allocations, and instant invite tracking in one place.</p>
+            </article>
+
+            <!-- 4. Budget Guardian -->
+            <article class="feature-card reveal">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg>
+              </div>
+              <h3>Budget Guardian</h3>
+              <p>Smart category splits, advance payment alerts, and real-time overspend warnings before costs sneak up on you.</p>
+            </article>
+
+            <!-- 5. Auto Reminders -->
+            <article class="feature-card reveal">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+              </div>
+              <h3>Auto Reminders</h3>
+              <p>Never miss a vendor deposit, outfit fitting, or RSVP nudge with gentle, timely reminders for you and co-hosts.</p>
+            </article>
+
+            <!-- 6. Instant Replanning -->
+            <article class="feature-card reveal">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10" />
+                  <polyline points="1 20 1 14 7 14" />
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                </svg>
+              </div>
+              <h3>Instant Replanning</h3>
+              <p>Guest count jumped by 40 or rain shifted your lawn venue? Tell Shubh what changed and watch your plan adapt in seconds.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4-Step How-It-Works Strip -->
+      <section class="section how-strip" id="how-it-works">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="eyebrow">How It Works</span>
+            <h2 class="section-title">From blank slate to celebration-ready in 4 steps</h2>
+            <p class="section-subtitle">
+              Shubh turns messy notes and family WhatsApp threads into one calm, actionable blueprint.
+            </p>
+          </div>
+
+          <div class="steps-grid">
+            <div class="step-card reveal">
+              <div class="step-number">1</div>
+              <h3>Tell us your event</h3>
+              <p>Share your occasion, target date, approximate guest count, city, and comfortable budget.</p>
+            </div>
+
+            <div class="step-card reveal">
+              <div class="step-number">2</div>
+              <h3>Get your plan</h3>
+              <p>Shubh builds your custom timeline, budget split, and curated vendor shortlist instantly.</p>
+            </div>
+
+            <div class="step-card reveal">
+              <div class="step-number">3</div>
+              <h3>Track everything</h3>
+              <p>Check off tasks, monitor RSVPs, log vendor advances, and stay aligned with your family.</p>
+            </div>
+
+            <div class="step-card reveal">
+              <div class="step-number">4</div>
+              <h3>Shubh replans when life happens</h3>
+              <p>Dates shift, budgets stretch, or guests add plus-ones—Shubh recalibrates the entire plan smoothly.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Event-Type Chips -->
+      <section class="section" id="occasions">
+        <div class="container">
+          <div class="event-types-box reveal">
+            <span class="eyebrow">Built For Every Milestone</span>
+            <h2 class="section-title">Choose your celebration</h2>
+            <p class="section-subtitle" style="max-width: 560px; margin: 0 auto;">
+              Pick an occasion below to preview how Shubh tailors rituals, checklists, and budgets to your gathering.
+            </p>
+
+            <div class="chips-wrap" role="group" aria-label="Event types">
+              <button type="button" class="event-chip active" data-event="Wedding">💍 Wedding</button>
+              <button type="button" class="event-chip" data-event="Engagement">✨ Engagement</button>
+              <button type="button" class="event-chip" data-event="Birthday">🎂 Birthday</button>
+              <button type="button" class="event-chip" data-event="Anniversary">🥂 Anniversary</button>
+              <button type="button" class="event-chip" data-event="Corporate Offsite">🏢 Corporate Offsite</button>
+              <button type="button" class="event-chip" data-event="Baby Shower">🌼 Baby Shower</button>
+            </div>
+
+            <p class="chip-caption" id="chip-caption">
+              Selected: <strong>Wedding</strong> — Multi-day ceremonies, vendor coordination, and full family RSVP tracking ready.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3-Tier Pricing -->
+      <section class="section" id="pricing" style="padding-top: 20px;">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="eyebrow">Transparent Pricing</span>
+            <h2 class="section-title">Start free, upgrade as your celebration grows</h2>
+            <p class="section-subtitle">
+              No hidden commissions. Just clear planning power for hosts, families, and boutique event studios.
+            </p>
+          </div>
+
+          <div class="pricing-grid">
+            <!-- Free Tier -->
+            <div class="pricing-card reveal">
+              <h3 class="pricing-tier">Free</h3>
+              <p class="pricing-desc">Perfect for intimate birthdays, engagements, and getting started.</p>
+              <div class="pricing-price">₹0 <span>/ forever</span></div>
+              <ul class="pricing-features">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  1 active event workspace
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Smart Timeline &amp; checklist
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Up to 75 guests in RSVP Tracker
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Basic Budget Guardian split
+                </li>
+              </ul>
+              <button type="button" class="btn btn-outline js-start-planning" style="width: 100%;">Start Free</button>
+            </div>
+
+            <!-- Pro Tier -->
+            <div class="pricing-card featured reveal">
+              <span class="pricing-badge">Most Popular</span>
+              <h3 class="pricing-tier">Pro</h3>
+              <p class="pricing-desc">Built for grand weddings and milestone multi-day celebrations.</p>
+              <div class="pricing-price">₹1,499 <span>/ event</span></div>
+              <ul class="pricing-features">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Unlimited guests &amp; multi-function RSVPs
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Unlimited Shubh AI chat &amp; Instant Replanning
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Vendor Matchmaker &amp; shortlist comparison
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Auto Reminders &amp; 5 family co-planners
+                </li>
+              </ul>
+              <button type="button" class="btn btn-primary js-start-planning" style="width: 100%;">Start Planning Pro</button>
+            </div>
+
+            <!-- Planner Studio Tier -->
+            <div class="pricing-card reveal">
+              <h3 class="pricing-tier">Planner Studio</h3>
+              <p class="pricing-desc">Designed for professional wedding planners and boutique agencies.</p>
+              <div class="pricing-price">₹4,999 <span>/ month</span></div>
+              <ul class="pricing-features">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Up to 15 concurrent client events
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  White-label client portals &amp; reports
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Custom vendor database &amp; payment ledger
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  Priority Shubh AI concierge support
+                </li>
+              </ul>
+              <button type="button" class="btn btn-maroon js-start-planning" style="width: 100%;">Explore Studio</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 Testimonial Cards -->
+      <section class="section" id="testimonials">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="eyebrow">Loved By Hosts</span>
+            <h2 class="section-title">Calm, joyful planning stories</h2>
+            <p class="section-subtitle">
+              Real celebrations orchestrated with clarity, warmth, and zero last-minute panic.
+            </p>
+          </div>
+
+          <div class="testimonials-grid">
+            <article class="testimonial-card reveal">
+              <div>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-quote">
+                  “We planned a 300-guest Udaipur wedding while working full-time in Bengaluru. When our Sangeet venue had to move indoors two weeks out, Shubh replanned our decor budget and timeline in ten minutes.”
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar">AN</div>
+                <div class="author-info">
+                  <strong>Ananya &amp; Nikhil</strong>
+                  <span>3-Day Destination Wedding • Udaipur</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card reveal">
+              <div>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-quote">
+                  “Our parents’ 25th Anniversary had 12 relatives giving different suggestions. Having one Budget Guardian and RSVP Tracker kept everyone happy—and we stayed ₹65,000 under budget.”
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar">RS</div>
+                <div class="author-info">
+                  <strong>Rhea Sharma</strong>
+                  <span>Silver Jubilee Anniversary • Delhi NCR</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card reveal">
+              <div>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-quote">
+                  “As a boutique planner handling six events a quarter, Planner Studio saved my team at least 12 hours a week on vendor follow-ups, checklist nudges, and client budget updates.”
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar">VM</div>
+                <div class="author-info">
+                  <strong>Vikram Mehta</strong>
+                  <span>Founder, Marigold &amp; Co. • Mumbai</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Banner -->
+      <section class="cta-banner-section">
+        <div class="container">
+          <div class="cta-banner reveal">
+            <div class="cta-banner-content">
+              <h2>Your celebration deserves joy, not spreadsheets.</h2>
+              <p>
+                Tell Shubh your budget, guest count, and date—get a calm, bespoke event plan in under two minutes.
+              </p>
+              <button type="button" class="btn btn-primary js-start-planning">
+                Start Planning Your Event
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 4-Column Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#hero" class="brand-logo">
+              <span class="brand-mark">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L14.8 8.5L21.5 9.2L16.4 13.7L17.9 20.4L12 16.8L6.1 20.4L7.6 13.7L2.5 9.2L9.2 8.5L12 2Z" />
+                </svg>
+              </span>
+              <span>Utsav AI</span>
+            </a>
+            <p>
+              AI-powered event and wedding planning built to turn grand celebrations into effortless memories.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#features">Smart Timeline</a></li>
+              <li><a href="#features">Vendor Matchmaker</a></li>
+              <li><a href="#features">Budget Guardian</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Celebrations</h4>
+            <ul>
+              <li><a href="#occasions">Weddings</a></li>
+              <li><a href="#occasions">Engagements</a></li>
+              <li><a href="#occasions">Milestone Birthdays</a></li>
+              <li><a href="#occasions">Corporate Offsites</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#testimonials">Host Stories</a></li>
+              <li><a href="javascript:void(0)" class="js-start-planning">Open Planner App</a></li>
+              <li><a href="mailto:hello@utsav.ai">hello@utsav.ai</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 Utsav AI. Crafted with warmth for every milestone.</span>
+          <span>Privacy Policy • Terms of Service</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- ========================================================================
+       VIEW 2: APP SHELL (Hidden by Default, Activated by "Start Planning")
+       ======================================================================== -->
+  <div id="app-view" class="app-shell hidden">
+
+    <!-- Left Sidebar (Collapses to Bottom Tab Bar on Mobile) -->
+    <aside class="app-sidebar" aria-label="Planner Navigation">
+      <div>
+        <div class="sidebar-header">
+          <a href="javascript:void(0)" class="brand-logo js-back-home" title="Back to Landing Page">
+            <span class="brand-mark">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L14.8 8.5L21.5 9.2L16.4 13.7L17.9 20.4L12 16.8L6.1 20.4L7.6 13.7L2.5 9.2L9.2 8.5L12 2Z" />
+              </svg>
+            </span>
+            <span>Utsav AI</span>
+          </a>
+        </div>
+
+        <nav class="sidebar-nav" role="tablist">
+          <!-- 1. Dashboard -->
+          <button type="button" class="sidebar-tab active" data-tab="dashboard" role="tab" aria-selected="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="9" rx="1.5" />
+              <rect x="14" y="3" width="7" height="5" rx="1.5" />
+              <rect x="14" y="12" width="7" height="9" rx="1.5" />
+              <rect x="3" y="16" width="7" height="5" rx="1.5" />
+            </svg>
+            <span>Dashboard</span>
+          </button>
+
+          <!-- 2. Timeline -->
+          <button type="button" class="sidebar-tab" data-tab="timeline" role="tab" aria-selected="false">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            <span>Timeline</span>
+          </button>
+
+          <!-- 3. Vendors -->
+          <button type="button" class="sidebar-tab" data-tab="vendors" role="tab" aria-selected="false">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>Vendors</span>
+          </button>
+
+          <!-- 4. Guests -->
+          <button type="button" class="sidebar-tab" data-tab="guests" role="tab" aria-selected="false">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            <span>Guests</span>
+          </button>
+
+          <!-- 5. Budget -->
+          <button type="button" class="sidebar-tab" data-tab="budget" role="tab" aria-selected="false">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            <span>Budget</span>
+          </button>
+
+          <!-- 6. Shubh AI -->
+          <button type="button" class="sidebar-tab" data-tab="shubh-ai" role="tab" aria-selected="false">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <span>Shubh AI</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button type="button" class="back-home-btn js-back-home">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          <span>Back to Landing</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main App Content -->
+    <div class="app-main">
+      <!-- Top Bar -->
+      <header class="app-topbar">
+        <div class="topbar-event">
+          <span class="topbar-event-title" id="app-event-name">Meera &amp; Kabir's Wedding</span>
+          <span class="topbar-event-badge" id="app-event-type-badge">Wedding</span>
+        </div>
+
+        <div class="topbar-actions">
+          <!-- Countdown Pill Placeholder -->
+          <div class="countdown-pill" title="Countdown placeholder">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <span>D-84 to go</span>
+          </div>
+
+          <!-- Reminders Bell -->
+          <button type="button" class="bell-btn" id="bell-btn" aria-label="View Reminders" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <span class="bell-dot"></span>
+          </button>
+
+          <!-- Reminder Dropdown Popover -->
+          <div class="reminder-popover hidden" id="reminder-popover">
+            <h4>Auto Reminders</h4>
+            <div class="reminder-item">Caterer tasting confirmation due in 2 days</div>
+            <div class="reminder-item">18 guests yet to submit travel arrival details</div>
+            <div class="reminder-item">Mehendi decor deposit milestone upcoming</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- App Tab Panels (Only One Visible at a Time) -->
+      <main class="app-content">
+
+        <!-- TAB 1: DASHBOARD -->
+        <section class="tab-panel active" id="tab-dashboard" role="tabpanel">
+          <div class="tab-header">
+            <h1>Dashboard</h1>
+            <p>High-level command center for your celebration countdown, health, tasks, budget, and RSVPs.</p>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-6">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Countdown</h3>
+                <p>Days, hours, and key ceremony milestones counting down to your big day.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Event Timer</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box span-6">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Plan Health</h3>
+                <p>AI readiness score combining vendor bookings, task progress, and budget buffer.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Health Meter</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Upcoming Tasks</h3>
+                <p>Prioritized next actions assigned to you, family members, and Shubh AI.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Task Feed</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Budget Snapshot</h3>
+                <p>Total budget allocated vs. committed vendor spend and remaining cushion.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Spend Summary</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>RSVP Snapshot</h3>
+                <p>Quick tally of confirmed, pending, and declined guests across functions.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Guest Pulse</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 2: TIMELINE -->
+        <section class="tab-panel" id="tab-timeline" role="tabpanel">
+          <div class="tab-header">
+            <h1>Timeline</h1>
+            <p>Stay ahead of every ceremony milestone with smart sequencing and overdue alerts.</p>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-12">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Month-by-Month Timeline</h3>
+                <p>Chronological roadmap from 6 months out through the final week and day-of run sheet.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Interactive Roadmap</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box span-8">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Checklist</h3>
+                <p>Filterable to-do list grouped by ceremony, owner, and vendor category.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Task Manager</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Overdue Tasks</h3>
+                <p>Flagged items needing immediate attention or one-click Shubh rescheduling.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Priority Queue</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 3: VENDORS -->
+        <section class="tab-panel" id="tab-vendors" role="tabpanel">
+          <div class="tab-header">
+            <h1>Vendors</h1>
+            <p>Discover AI-matched partners, compare quotes, and keep your booked team organized.</p>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Suggested Vendors</h3>
+                <p>Curated venues, caterers, photographers, and decorators matched to your budget.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • AI Matchmaker</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Shortlist</h3>
+                <p>Side-by-side quote comparison, tasting notes, and availability status.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Quote Compare</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Booked</h3>
+                <p>Confirmed vendor contacts, signed contracts, and deliverables tracker.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Confirmed Roster</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 4: GUESTS -->
+        <section class="tab-panel" id="tab-guests" role="tabpanel">
+          <div class="tab-header">
+            <h1>Guests</h1>
+            <p>Coordinate invitations, household groups, and function-wise RSVPs effortlessly.</p>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-8">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Guest List</h3>
+                <p>Master directory with family sides, plus-ones, dietary preferences, and stay needs.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Household Directory</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>RSVP Summary</h3>
+                <p>Headcount breakdown per event (Mehendi, Sangeet, Wedding, Reception).</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Headcount Analytics</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box span-12">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Send Invites</h3>
+                <p>Digital invite composer with WhatsApp/email dispatch and automated RSVP follow-ups.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Invite Broadcast</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 5: BUDGET -->
+        <section class="tab-panel" id="tab-budget" role="tabpanel">
+          <div class="tab-header">
+            <h1>Budget</h1>
+            <p>Guard your target spend with intelligent category allocations and payment schedules.</p>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Budget Split</h3>
+                <p>AI-recommended allocation across Venue, Catering, Decor, Attire, and Buffer.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Category Allocator</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Expenses</h3>
+                <p>Itemized expense ledger tracking quotes, advances paid, and variances.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Expense Ledger</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Payments Due</h3>
+                <p>Upcoming vendor installment calendar with automated due-date reminders.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Payment Schedule</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 6: SHUBH AI -->
+        <section class="tab-panel" id="tab-shubh-ai" role="tabpanel">
+          <div class="tab-header">
+            <h1>Shubh AI</h1>
+            <p>Your always-on AI planner for ideas, negotiations, and instant plan adjustments.</p>
+          </div>
+
+          <div class="placeholder-grid">
+            <div class="placeholder-box span-8">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>Chat with Shubh</h3>
+                <p>Conversational AI workspace to ask ritual questions, draft vendor messages, or brainstorm themes.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • AI Assistant Stream</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+
+            <div class="placeholder-box">
+              <div>
+                <span class="placeholder-tag">Module Placeholder</span>
+                <h3>What Changed? Replan</h3>
+                <p>Update guest count, date, or budget cap to automatically rebalance timelines and costs.</p>
+              </div>
+              <div class="placeholder-meta">
+                <span>Future Feature • Dynamic Replanner</span>
+                <span>Ready for Data</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       VANILLA JAVASCRIPT: View Switching, Tabs, Scroll Animations & Interactions
+       ======================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ----------------------------------------------------------------------
+      // DOM References
+      // ----------------------------------------------------------------------
+      const landingView = document.getElementById('landing-view');
+      const appView = document.getElementById('app-view');
+      const startButtons = document.querySelectorAll('.js-start-planning');
+      const backHomeButtons = document.querySelectorAll('.js-back-home');
+
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.js-mobile-link');
+
+      const eventChips = document.querySelectorAll('.event-chip');
+      const chipCaption = document.getElementById('chip-caption');
+      const appEventName = document.getElementById('app-event-name');
+      const appEventTypeBadge = document.getElementById('app-event-type-badge');
+
+      const sidebarTabs = document.querySelectorAll('.sidebar-tab');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+
+      const bellBtn = document.getElementById('bell-btn');
+      const reminderPopover = document.getElementById('reminder-popover');
+
+      // Event label mapping when a chip is selected on landing page
+      const eventDescriptions = {
+        'Wedding': {
+          title: "Meera & Kabir's Wedding",
+          caption: 'Multi-day ceremonies, vendor coordination, and full family RSVP tracking ready.'
+        },
+        'Engagement': {
+          title: "Aarav & Tara's Engagement",
+          caption: 'Ring ceremony timeline, floral stage shortlist, and intimate guest list ready.'
+        },
+        'Birthday': {
+          title: "Dadi's 75th Birthday Bash",
+          caption: 'Theme decor moodboard, catering headcount, and music playlist checklist ready.'
+        },
+        'Anniversary': {
+          title: "25th Anniversary Soirée",
+          caption: 'Dinner seating layout, family tribute timeline, and budget guardrails ready.'
+        },
+        'Corporate Offsite': {
+          title: "Annual Team Offsite 2026",
+          caption: 'Resort room blocks, keynote run-of-show, and travel logistics tracker ready.'
+        },
+        'Baby Shower': {
+          title: "Godh Bharai & Baby Shower",
+          caption: 'Traditional ritual checklist, pastel floral decor budget, and guest invites ready.'
+        }
+      };
+
+      // ----------------------------------------------------------------------
+      // 1. View Switcher (View 1: Landing <-> View 2: App Shell)
+      // ----------------------------------------------------------------------
+      function showAppView() {
+        landingView.classList.add('hidden');
+        appView.classList.remove('hidden');
+        mobileMenu.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+
+      function showLandingView() {
+        appView.classList.add('hidden');
+        landingView.classList.remove('hidden');
+        reminderPopover.classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+
+      startButtons.forEach((btn) => {
+        btn.addEventListener('click', showAppView);
+      });
+
+      backHomeButtons.forEach((btn) => {
+        btn.addEventListener('click', showLandingView);
+      });
+
+      // ----------------------------------------------------------------------
+      // 2. Mobile Hamburger Menu Toggle
+      // ----------------------------------------------------------------------
+      hamburgerBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          hamburgerBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // ----------------------------------------------------------------------
+      // 3. Interactive Event-Type Chips
+      // ----------------------------------------------------------------------
+      eventChips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          eventChips.forEach((c) => c.classList.remove('active'));
+          chip.classList.add('active');
+
+          const selectedType = chip.dataset.event;
+          const details = eventDescriptions[selectedType];
+
+          if (details) {
+            chipCaption.innerHTML = `Selected: <strong>${selectedType}</strong> — ${details.caption}`;
+            appEventName.textContent = details.title;
+            appEventTypeBadge.textContent = selectedType;
+          }
+        });
+      });
+
+      // ----------------------------------------------------------------------
+      // 4. App Shell Tab Switching (Only One Tab Visible at a Time)
+      // ----------------------------------------------------------------------
+      sidebarTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const targetId = `tab-${tab.dataset.tab}`;
+
+          // Update active tab state
+          sidebarTabs.forEach((t) => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+
+          // Show only the matching panel
+          tabPanels.forEach((panel) => {
+            panel.classList.toggle('active', panel.id === targetId);
+          });
+
+          // Close reminders popover if open
+          reminderPopover.classList.add('hidden');
+        });
+      });
+
+      // ----------------------------------------------------------------------
+      // 5. Top Bar Reminders Bell Popover
+      // ----------------------------------------------------------------------
+      bellBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = reminderPopover.classList.toggle('hidden');
+        bellBtn.setAttribute('aria-expanded', String(!isHidden));
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!reminderPopover.contains(e.target) && !bellBtn.contains(e.target)) {
+          reminderPopover.classList.add('hidden');
+          bellBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // ----------------------------------------------------------------------
+      // 6. Scroll Fade-In Animations via IntersectionObserver
+      // ----------------------------------------------------------------------
+      const revealElements = document.querySelectorAll('.reveal');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+        );
+
+        revealElements.forEach((el) => observer.observe(el));
+      } else {
+        // Fallback for older browsers
+        revealElements.forEach((el) => el.classList.add('is-visible'));
+      }
+    });
+  </script>
+</body>
+</html>
